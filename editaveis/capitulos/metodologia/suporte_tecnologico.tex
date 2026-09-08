@@ -1,77 +1,62 @@
+%
+%Nesta seção serão apresentados os recursos tecnológicos usados para o desenvolvimento do projeto.
+%
+%
+%%\subsection{Figma}
+%%
+%%O Figma foi escolhido como software de elaboração do protótipo, devido à sua alta robustez como ferramenta de design colaborativo. O mesmo permite a inclusão de padrões e templates que são amplamente utilizados na indústria. Além disso, o Figma oferece a capacidade de criar fluxo de telas, possibilitando a realização de protótipos de alta fidelidade, com integração de fluxo de dados \cite{figma}.
+%%
+%%\subsection{Draw.io BrModelo Bizagi, Miro (ferramentas de diagramação, essas 4 em conjunto foram utilizadas para desenvolver os mais diversos tipos de diagrama no projeto)
+%%\subsection{Miro}
+%%
+%%A metodologia Lean Inception exige um ambiente colaborativo, tendo isso em mente, o Miro oferece templates para o desenvolvimento do Lean Inception, além de exemplos de utilização de artefatos e tutoriais para o uso. Logo, essa ferramenta se revela essencial para facilitar a aplicação dessa metodologia \cite{caroli2017lean}.
+%%Draw.io é uma ferramenta amplamente utilizada para a elaboração de diagramas UML (Unified Modeling Language), permitindo a criação de diagramas estruturados como diagramas de classes e de diagrama de pacotes. Ademais, oferece suporte a ambientes colaborativos, facilitando o desenvolvimento em equipe \cite{drawio}.
+%%
+%%\subsection{PowerBI}
+%%Trata-se de um software dedicado à análise de dados, sendo capaz de fornecer dashboards interativas que facilitam a visualizações de dados por meio de gráficos, relatórios e Key Performance Indicators (KPIs) \cite{powerbi}. A ferramenta possibilita o compartilhamento de relatórios em tempo real e irá auxiliar na elaboração de atas de progressos individuais mensais com base nos formulários diários, além de atas de visão geral de dados que poderão ser acessados pelos administradores do aplicativo.
+%
+%\subsection{Spring Boot}
+%
+%O Spring é um framework utilizado no ecossistema Java, o mesmo é voltado para aplicações robustas e escaláveis. Ele possui suporte à injeção de dependências, configuração de rotas, conexão com base de dados e diversas outras funcionalidades. Em especial, o Spring Boot é responsável por gerar o projeto com as configurações pré-definidas, evitando a adição manual das dependências. O mesmo segue o princípio "convention over configuration", que gera as dependências de forma automática \cite{weissmann2014vire}.
+%
+%\subsection{PostgreSQL}
+%
+%Como definido na arquitetura do sistema, é necessário um banco relacional para o desenvolvimento deste trabalho. Para tal finalidade, optou-se pela utilização do PostgreSQL, um Sistema Gerenciador de Banco de Dados Relacional (SGBDR) de código aberto amplamente reconhecido pela sua robustez, confiabilidade e escalabilidade.
+%
+%A escolha do PostgreSQL justifica-se pelas suas diversas funcionalidades avançadas, como suporte à programação de eventos temporais por meio da ferramenta pgAgent, para backups, além de possibilidade de extensão, pois o mesmo possui diversas bibliotecas externas. O PostgreSQL também oferece suporte a \textit{triggers} e \textit{procedures} implementadas em diversas linguagens, como PL/pgSQL, PL/Python, PL/Java, entre outros, o que proporciona maior flexibilidade e customização caso seja necessário \cite{postgresql_2025}.
+%
+%\subsection{Git e GitHub}
+%
+%A fim de gerenciar o versionamento do projeto, é necessária uma ferramenta capaz de realizar essa tarefa, para isso se dá a utilização do Git, o mesmo é capaz de rastrear alterações, facilitar o trabalho em equipe e manter o histórico de desenvolvimento. Além disso, também é indispensável uma plataforma de hospedagem de repositórios, para isso o Github se adequa, sendo ele a maior e mais popular plataforma de hospedagem de repositórios \cite{githubdocs}.
 
-Nesta seção serão apresentados os recursos tecnológicos usados para o desenvolvimento do TCC1 e os recursos planejados para implementação do TCC2.
 
-\subsection{Miro}
 
-A metodologia Lean Inception exige um ambiente colaborativo, tendo isso em mente, o Miro oferece templates para o desenvolvimento do Lean Inception, além de exemplos de utilização de artefatos e tutoriais para o uso. Logo, essa ferramenta se revela essencial para facilitar a aplicação dessa metodologia \cite{caroli2017lean}.
+Nesta seção serão apresentados os recursos tecnológicos usados para o desenvolvimento do projeto, apresentados na Tabela \ref{tab:tecnologias}.
 
-\subsection{Figma}
+\begin{center}
+    \begin{longtable}{|>{\raggedright\arraybackslash}p{3.5cm}|p{11.5cm}|}
+        \caption{Recursos Tecnológicos} \label{tab:tecnologias} \\
+        \hline
+        \textbf{Tecnologia} & \textbf{Uso no projeto} \\
+        \hline
+        \endfirsthead
 
-O Figma foi escolhido como software de elaboração do protótipo, devido à sua alta robustez como ferramenta de design colaborativo. O mesmo permite a inclusão de padrões e templates que são amplamente utilizados na indústria. Além disso, o Figma oferece a capacidade de criar fluxo de telas, possibilitando a realização de protótipos de alta fidelidade, com integração de fluxo de dados \cite{figma}.
+        \hline
+        \textbf{Tecnologia} & \textbf{Uso no projeto} \\
+        \hline
+        \endhead
 
-\subsection{Draw.io}
+        Figma e Figma Make & Elaboração do protótipo de alta fidelidade e geração prevista do software web a partir do design \cite{figma}. \\
+        \hline
+        Ferramentas de diagramação (Miro, Draw.io, BrModelo e Bizagi) & Elaboração dos diversos diagramas do projeto, como Lean Inception \cite{caroli2017lean}, UML \cite{drawio}, entidade-relacionamento e processos de negócio (BPMN). \\
+        \hline
+        Spring (Spring Boot, Spring Data e Hibernate) & Framework Java utilizado no back-end, incluindo configuração automática, ORM e demais APIs do ecossistema \cite{weissmann2014vire}. \\
+        \hline
+        Git e GitHub & Versionamento e hospedagem dos repositórios do projeto, sendo eles Monografia, Front e Service \cite{githubdocs}. \\
+        \hline
+        Claude Code & Apoio ao desenvolvimento do software, auxiliando na escrita, revisão e depuração de código. \\
+        \hline
 
-Draw.io é uma ferramenta amplamente utilizada para a elaboração de diagramas UML (Unified Modeling Language), permitindo a criação de diagramas estruturados como diagramas de classes e de diagrama de pacotes. Ademais, oferece suporte a ambientes colaborativos, facilitando o desenvolvimento em equipe \cite{drawio}.
-
-\subsection{PowerBI}
-Trata-se de um software dedicado à análise de dados, sendo capaz de fornecer dashboards interativas que facilitam a visualizações de dados por meio de gráficos, relatórios e Key Performance Indicators (KPIs) \cite{powerbi}. A ferramenta possibilita o compartilhamento de relatórios em tempo real e irá auxiliar na elaboração de atas de progressos individuais mensais com base nos formulários diários, além de atas de visão geral de dados que poderão ser acessados pelos administradores do aplicativo.
-
-% \subsection{Bizagi}
-
-% BPMN
-
-% \subsection{Zotero}
-
-% LEITURA COMPARTILHADA
-
-% \subsection{Overleaf}
-
-% DESENVOLVIMENTO DA PARTE ESCRITA
-
-\subsection{Jira}
-
-Com o intuito de organização das \textit{sprints} e utilização do E-Kanban, a ferramenta Jira se prova a ideal para o gerenciamento de projetos que utilizam metodologias ágeis. Por meio dela, é possível acompanhar o progresso das tarefas, priorizar entregas e visualizar os fluxos de trabalhos, promovendo maior eficiência na organização do mesmo \cite{jira}.
-
-Ademais, o Jira é altamente personalizável, o que permite sua adaptação a diferentes metodologias ágeis \cite{jira}. Essa flexibilidade é essencial para atender às necessidades específicas do projeto, pois suporta a adaptação do Scrum proposto, logo a utilização dele torna-se fundamental para o gerenciamento deste projeto.
-
-\subsection{Spring Boot}
-
-O Spring é um framework utilizado no ecossistema Java, o mesmo é voltado para aplicações robustas e escaláveis. Ele possui suporte à injeção de dependências, configuração de rotas, conexão com base de dados e diversas outras funcionalidades. Em especial, o Spring Boot é responsável por gerar o projeto com as configurações pré-definidas, evitando a adição manual das dependências. O mesmo segue o princípio "convention over configuration", que gera as dependências de forma automática \cite{weissmann2014vire}.
-
-\subsection{IntelliJ IDEA}
-
-O IntelliJ IDEA é amplamente reconhecido como uma das IDEs (Integrated Development Environments) mais avançadas e completas atualmente. Segundo a \citeonline{jetbrains_2024}, 78\% dos programadores em Java optam pelo IntelliJ. A ferramenta oferece uma série de recursos integrados que tornam altamente eficiente o desenvolvimento de software.
-
-Dentre os principais recursos está o suporte nativo a ferramentas de depuração, em especial o Spring Debugger, capaz de identificar e manipular \textit{Beans}, bem como de oferecer diversas funcionalidades úteis para o Spring \cite{springdebugger_2025}. Além de possuir integração com banco de dados através do Database Tools, que elimina a necessidade de ferramentas auxiliares como pgAdmin4 ou MySQL Workbench \cite{jetbrains_2024}.
-
-Tendo em vista que o projeto utilizará o Spring Framework, é necessário uma ferramenta de desenvolvimento que seja capaz de gerenciar dependências Maven. Com o IntelliJ, a configuração e manutenção do Maven é realizada facilmente. Ademais, a fim de auxiliar a programação em pares da metodologia XP, se dá a necessidade de um ambiente de desenvolvimento que suporte colaboração em tempo real, que é outra funcionalidade existente no IntelliJ. Sendo assim, o mesmo se prova uma ferramenta extremamente valiosa para o desenvolvimento deste trabalho.
-
-\subsection{Expo}
-
-Para o desenvolvimento de aplicações móveis, o React Native se mostra uma alternativa excelente para criação de interfaces nativas, independentemente do sistema operacional do smartphone. Nesse contexto, o Expo torna-se extremamente útil, acelerando o processo de ambientação \cite{expo}.
-
-O Expo é uma plataforma de código aberto criada por Charlie Cheever, o mesmo possui um conjunto de ferramentas e serviços integrados para o desenvolvimento com React Native, sua utilidade envolve a eliminação de configurações manuais de ambientes nativos, inclusão de recursos essenciais dos smartphones, como localização, notificação, entre outros \cite{expo}.
-
-Sendo assim, a utilização do Expo facilita a inicialização e configuração de aplicações React Native, melhorando a produtividade e permitindo testes rápidos em dispositivos físicos, configurando-se como uma ferramenta essencial para o desenvolvimento mobile.
-
-\subsection{BrModelo}
-
-A ferramenta denominada brModelo, desenvolvida por membros da UFSC, trata-se de um recurso de apoio à concepção de projetos de Banco de Dados Relacionais \cite{brmodelo1}. Será realizada nesta plataforma a modelagem conceitual e a modelagem lógica do sistema a ser desenvolvido.
-
-Adicionalmente, a ferramenta oferece suporte também a elaboração de demais estruturas que poderão ser elaboradas no desenvolvimento deste projeto, tais como: diagrama de atividade, diagrama de fluxo e Estrutura Analítica de Projeto (EAP). 
-
-\subsection{PostgreSQL}
-
-Como definido na arquitetura do sistema, é necessário um banco relacional para o desenvolvimento deste trabalho. Para tal finalidade, optou-se pela utilização do PostgreSQL, um Sistema Gerenciador de Banco de Dados Relacional (SGBDR) de código aberto amplamente reconhecido pela sua robustez, confiabilidade e escalabilidade.
-
-A escolha do PostgreSQL justifica-se pelas suas diversas funcionalidades avançadas, como suporte à programação de eventos temporais por meio da ferramenta pgAgent, para backups, além de possibilidade de extensão, pois o mesmo possui diversas bibliotecas externas. O PostgreSQL também oferece suporte a \textit{triggers} e \textit{procedures} implementadas em diversas linguagens, como PL/pgSQL, PL/Python, PL/Java, entre outros, o que proporciona maior flexibilidade e customização caso seja necessário \cite{postgresql_2025}.
-
-\subsection{Git e GitHub}
-
-A fim de gerenciar o versionamento do projeto, é necessária uma ferramenta capaz de realizar essa tarefa, para isso se dá a utilização do Git, o mesmo é capaz de rastrear alterações, facilitar o trabalho em equipe e manter o histórico de desenvolvimento. Além disso, também é indispensável uma plataforma de hospedagem de repositórios, para isso o Github se adequa, sendo ele a maior e mais popular plataforma de hospedagem de repositórios \cite{githubdocs}.
-
-\subsection{SonarQube}
-
-O SonarQube é uma ferramenta de apoio à análise estática de código, com ele é possível identificar automaticamente falhas, bugs, vulnerabilidades de segurança, entre outros. Logo, a utilização do mesmo favorece a criação de um software mais seguro e auxilia na prevenção de erros, reduzindo custos de manutenção \cite{sonarqube}.
-
-Ainda que uma cobertura de testes próxima de 100\% seja um objetivo desejável, como aponta \cite{aniche_2014}, essa métrica por si só não garante qualidade. Sendo necessário analisá-la em conjunto com outras dimensões, o que reforça a importância do SonarQube no processo de desenvolvimento.
+        \multicolumn{2}{c}{\small Fonte: autoria própria.} \\
+    \end{longtable}
+\end{center}
