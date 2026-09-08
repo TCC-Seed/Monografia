@@ -7,7 +7,7 @@ MAKEINDEX = makeindex
 
 SOURCES = $(MAIN).tex $(shell find fixos editaveis -name '*.tex' 2>/dev/null)
 
-.PHONY: all clean cleanall
+.PHONY: all quick clean cleanall
 
 all: $(BUILD)/$(MAIN).pdf
 	@cp $(BUILD)/$(MAIN).pdf ./$(MAIN).pdf
@@ -22,6 +22,11 @@ $(BUILD)/$(MAIN).pdf: $(SOURCES) bibliografia.bib | $(BUILD)
 	-$(MAKEINDEX) $(BUILD)/$(MAIN).idx
 	$(LATEX) $(MAIN).tex
 	$(LATEX) $(MAIN).tex
+
+quick: | $(BUILD)
+	$(LATEX) $(MAIN).tex
+	@cp $(BUILD)/$(MAIN).pdf ./$(MAIN).pdf
+	@echo "PDF gerado (rápido): $(MAIN).pdf"
 
 clean:
 	rm -rf $(BUILD)
