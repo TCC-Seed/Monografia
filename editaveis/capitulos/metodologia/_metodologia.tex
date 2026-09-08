@@ -1,0 +1,91 @@
+\chapter{Metodologia}
+
+Este capítulo aprofunda o plano metodológico utilizado no desenvolvimento deste trabalho. Serão descritas as tecnologias empregadas, o cronograma, os artefatos de requisitos de software, diagramas de arquitetura de software e do projeto de dados, além de outros documentos elaborados.
+
+\section{Heurísticas de Nielsen}
+
+Segundo \citeonline{nielsen_1994} existem dez princípios amplamente conhecido para proporcionar usabilidade a um sistema, conhecido como Dez Heurísticas de Nielsen. Esses princípios funcionam como diretrizes para o desenvolvimento de interfaces mais intuitivas, eficientes e centradas no usuário, sendo essas diretrizes:
+
+\begin{enumerate}
+    \item \textbf{Visibilidade do status do sistema}: O sistema deve sempre manter os usuários informados sobre o que está acontecendo, por meio de feedback apropriado em tempo razoável.
+    
+    \item \textbf{Correspondência entre o sistema e o mundo real}: A interface deve falar a linguagem do usuário, com palavras, frases e conceitos familiares, seguindo convenções do mundo real.
+    
+    \item \textbf{Controle e liberdade do usuário}: Usuários frequentemente escolhem funções por engano; é necessário oferecer mecanismos claros de desfazer e refazer ações.
+    
+    \item \textbf{Consistência e padrões}: Os usuários não devem ter que imaginar se diferentes palavras, situações ou ações significam a mesma coisa. O sistema deve seguir convenções.
+    
+    \item \textbf{Prevenção de erros}: Melhor do que apresentar boas mensagens de erro é evitar que o erro ocorra, por meio de design cuidadoso.
+    
+    \item \textbf{Reconhecimento em vez de memorização}: Minimizar a carga de memória do usuário, tornando objetos, ações e opções visíveis.
+    
+    \item \textbf{Flexibilidade e eficiência de uso}: A interface deve atender tanto usuários iniciantes quanto experientes, permitindo atalhos para os mais avançados.
+    
+    \item \textbf{Estética e design minimalista}: Diálogos e telas não devem conter informações irrelevantes ou raramente necessárias.
+    
+    \item \textbf{Ajuda no reconhecimento, diagnóstico e recuperação de erros}: As mensagens de erro devem ser expressas em linguagem simples, indicando claramente o problema e sugerindo uma solução.
+    
+    \item \textbf{Ajuda e documentação}: Mesmo que o sistema possa ser utilizado sem documentação, pode ser necessário oferecer ajuda e instruções acessíveis e objetivas.
+\end{enumerate}
+
+Sendo assim, a fim de proporcionar usabilidade e acessibilidade a todos os publicos o projeto proposto visa a utilização das heuristicas, como também visa seguir as normas da LGPD (Lei Geral de Proteção) a fim de proporcionar maior segurança aos usuários \cite{brasil2018lgpd}.
+
+\section{Escala de Likert}
+
+A Escala de Likert é uma das principais ferramentas psicométricas, sendo amplamente utilizada nas pesquisas em ciências sociais e educacionais. Ela foi desenvolvida com o principal objetivo de quantificar atitudes, percepções e crenças, sendo uma maneira de transformar fenômenos qualitativos da experiência humana em dados quantificáveis e cientificamente tratáveis \cite{joshi_2015}.
+
+Além disso, do ponto de vista psicométrico, a Escala de Likert proporciona a mensuração de variáveis latentes, como sentimento ou opiniões, por meio de afirmações com os quais os participantes expressam níveis de concordância ou discordância em uma escala ordinal simétrica. Em outras palavras, a escala apresenta cinco ou sete pontos, indo de "discordo totalmente" até "concordo totalmente", permitindo capturar nuances mais refinados, sendo preferível a escala com sete pontos, pois proporciona mais opções intermediárias ao participante, o que aumenta a precisão da medida psicométrica \cite{joshi_2015}.
+
+Sendo assim, a Escala de Likert é fundamental para a avaliação de atitudes e percepções de natureza psicológica, proporcionando uma coleta de dados mais precisa, coerente e passível de análise estatística. Portanto, é uma ferramenta indispensável para a realização de formulários sobre o bem-estar e hábitos.
+
+\section{Alpha de Cronbach}
+
+O Alpha de Cronbach, proposto por Lee Cronbach em 1951, é uma maneira de avaliar quão fidedigno é um conjunto de dados. Em outras palavras, ele verifica o quanto as perguntas estão correlacionadas entre si, o que permite avaliar a confiabilidade dos dados \cite{cronbach_1951}. Sendo assim, é possível calcula-lo a partir da seguinte equação:
+
+\begin{equation}
+\label{eqn01}
+    \mathbf{\alpha} = \frac{N}{N - 1} \left( 1 - \frac{\sum_{i=1}^{N} \sigma_{Y_i}^2}{\sigma_X^2} \right)
+\end{equation}
+
+% Onde:
+
+% \begin{itemize}
+% \item[$ \alpha $] Coeficiente de confiabilidade (Alpha de Cronbach)
+% \item[$ N $] Número total de itens no conjunto de perguntas
+% \item[$ \sigma_{Y_i}^2 $] Variância do i-ésimo item
+% \item[$ \sigma_X^2 $] Variância total do somatório dos itens
+% \item[$ \sum $] Somatório dos itens
+% \end{itemize}
+
+Além de indicar a confiabilidade dos dados coletados, o Alpha de Cronbach também permite verificar a concordância entre as perguntas. Isso é útil para avaliar se o conjunto de questões está bem estruturado e se mede de forma coerente o mesmo conceito \cite{cronbach_1951}.
+
+O cálculo do Alpha de Cronbach pode ser implementado em qualquer linguagem de programação Turing-completa, como Java, python, entre outras linguagens de programação modernas. Ou seja, a equação independe da linguagem de programação, sendo versátil e adaptável.
+
+Em suma, o valor do Alpha de Cronbach varia entre -1 e 1, sendo que valores próximos de 1 ou -1 indicam alta confiabilidade. Sendo assim, basta introduzir o conjunto de dados ao algoritmo que implementa a equação do Cronbach e considera-se que valores acima de 0.6 ou menores que -0.6 possuem dados confiáveis. Contudo, valores muito baixos ou negativos indicam pouca ou nenhuma confiabilidade \cite{cronbach_1951}.
+
+\section{Metodologia de pesquisa}
+\input{editaveis/capitulos/metodologia/metodologia_pesquisa}
+
+\section{Metodologia de Desenvolvimento}
+\input{editaveis/capitulos/metodologia/metodologia_desenvolvimento}
+
+\section{Requisitos}
+\input{editaveis/capitulos/metodologia/requisitos}
+
+\section{Suporte Tecnológico}
+\input{editaveis/capitulos/metodologia/suporte_tecnologico}
+
+\section{Arquitetura}
+\input{editaveis/capitulos/metodologia/arquitetura}
+
+\section{Representação Visual do Sistema}
+\input{editaveis/capitulos/metodologia/representacao_visual}
+
+\section{Projeto de Dados}
+\input{editaveis/capitulos/metodologia/projeto_dados}
+
+\section{Testes de Software}
+\input{editaveis/capitulos/metodologia/teste_software}
+
+\section{Prototipação}
+\input{editaveis/capitulos/metodologia/prototipacao}

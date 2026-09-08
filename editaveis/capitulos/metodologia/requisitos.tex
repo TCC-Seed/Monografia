@@ -1,0 +1,382 @@
+
+
+Os requisitos são especificações do sistema que visam suprir necessidades de usuários, sendo a elicitação de requisitos uma etapa crucial para o desenvolvimento de software. Esta é uma etapa fundamental para a engenharia de requisitos \cite{reinehr2020engenharia}. Segundo \citeonline{sommerville_2011}, esse processo deve ser realizado de forma sistemática com diversas técnicas, como documentação, validação, negociação, entre outras.
+
+Sendo assim, para o projeto proposto foram realizadas personas, brainstorming e histórias de usuário para elicitar novos requisitos. Além disso, MoSCoW e revisão de funcionalidades foram utilizadas para priorização dos requisitos levantados e a classificação dos requisitos obtidos foi realizada utilizando o método FURPS+, proporcionando uma visão ampla das necessidades dos usuários e do sistema.
+
+\subsection{Requisitos Funcionais}
+
+Os requisitos funcionais representam as funcionalidades que o sistema deve oferecer para atender às necessidades explícitas dos usuários. Em essência, eles descrevem comportamentos e serviços que o sistema deverá executar, além de regras de negócio relacionadas ao contexto do sistema, e sua implementação resulta diretamente em entregas perceptíveis ao usuário final \cite{reinehr2020engenharia}.
+
+\subsubsection{Histórias de Usuário}
+
+As histórias de usuário têm como principal objetivo descrever, de forma clara e concisa, funcionalidades necessárias do ponto de vista do usuário. Outro aspecto importante é a possibilidade de dividi-las em épicos, sendo grandes conjuntos de funcionalidades relacionadas que representam macro-requisitos do sistema, e \textit{features}, sendo funcionalidades específicas derivadas dos épicos, com escopo mais restrito e bem definido \cite{reinehr2020engenharia}.
+
+Além disso, a fim de proporcionar maior controle sobre as funcionalidades criadas, é necessário um método de priorização. O método escolhido para este projeto foi o MoSCoW, que classifica os requisitos funcionais nas seguintes categorias \cite{carvalho2021moscow}:
+
+\begin{itemize}
+    \item \textbf{Must}: requisitos que o sistema obrigatoriamente deve ter;
+    \item \textbf{Should}: requisitos importantes, mas que podem ser postergados caso necessário;
+    \item \textbf{Could}: requisitos desejáveis, cuja implementação depende da disponibilidade de tempo e recursos;
+    \item \textbf{Won’t}: requisitos que, embora desejados, não serão implementados neste momento.
+\end{itemize}
+
+Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usando histórias de usuário e priorizadas com MoSCoW. Cada funcionalidade é identificada por um código no formato \textbf{FX} para representar uma \textit{feature}, e \textbf{USX} para indicar a respectiva história de usuário associada.
+
+\subsubsubsection{Épico - Gerenciamento de registro do usuário.}
+
+\begin{itemize}
+
+    \item \textbf{Feature F01}: registro do usuário.
+    
+    US1 Eu, como usuário, desejo me cadastrar no aplicativo.
+
+    \begin{itemize}
+        \item Prioridade: deve ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F02}: registro do funcionário.
+
+    US2 Eu, como funcionário, desejo me cadastrar no aplicativo.
+
+    \begin{itemize}
+        \item Prioridade: deve ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F03}: edição de dados do usuário ou funcionário.
+
+    US3 Eu, como usuário ou funcionário, desejo editar meus dados no aplicativo.
+
+    \begin{itemize}
+        \item Prioridade: deve ter.
+    \end{itemize}
+
+    \item \textbf{Feature F04}: exclusão de dados do usuário ou funcionário.
+
+    US4 Eu, como usuário ou funcionário, desejo deletar os meus dados do aplicativo.
+
+    \begin{itemize}
+        \item Prioridade: deve ter.
+    \end{itemize}
+    
+\end{itemize}
+
+%--------------------------------------------------------------------------
+
+\subsubsubsection{Épico - Gerenciamento de formulários.}
+
+\begin{itemize}
+
+    \item \textbf{Feature F05}: registro de formulário.
+
+    US5 Eu, como usuário, desejo registrar diariamente minha avaliação do meu estado em cada seção do bem-estar.
+
+    \begin{itemize}
+        \item Prioridade: deve ter.
+    \end{itemize}
+    
+    US6 Eu, como funcionário, desejo visualizar os dados registrados pelos usuários.
+
+    \begin{itemize}
+        \item Prioridade: deve ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F06}: visualização de dados do formulário.
+
+    US7 Eu, como usuário, desejo visualizar meus formulários respondidos a qualquer momento.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F07}: estatísticas de formulários respondidos.
+
+    US8 Eu, como usuário, desejo visualizar as estatísticas dos formulários respondidos em forma de gráfico a qualquer momento.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F08}: gerenciamento de formulários.
+
+    US9 Eu, como funcionário, desejo criar formulários personalizados.
+
+    \begin{itemize}
+        \item Prioridade: poderia ter.
+    \end{itemize}
+
+    US10 Eu, como funcionário, desejo editar formulários à medida que analiso as perguntas.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+
+    \item \textbf{Feature F09}: bloco de anotações.
+
+    US11 Eu, como usuário, desejo adicionar anotações livres para os formulários respondidos.
+
+    \begin{itemize}
+        \item Prioridade: poderia ter.
+    \end{itemize}
+
+\end{itemize}
+
+%--------------------------------------------------------------------------
+
+\subsubsubsection{Épico - Gerenciamento de comunicação.}
+
+\begin{itemize}
+    \item \textbf{Feature F010}: geração de notificações.
+
+    US12 Eu, como usuário, gostaria de receber notificações para preenchimento dos formulários diários.
+
+    \begin{itemize}
+        \item Prioridade: poderia ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F11}: troca de senha.
+
+    US13 Eu, como usuário, desejo receber a confirmação de troca de senha por e-mail.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F12}: gerenciamento de avisos.
+
+    US14 Eu, como usuário, gostaria de receber avisos sobre o status do aplicativo por e-mail.
+    
+    \begin{itemize}
+        \item Prioridade: poderia ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F13}: avisos de eventos.
+
+    US15 Eu, como usuário, gostaria de receber avisos sobre possíveis eventos dentro do calendário do aplicativo.
+    
+    \begin{itemize}
+        \item Prioridade: poderia ter.
+    \end{itemize}
+\end{itemize}
+
+%--------------------------------------------------------------------------
+
+\subsubsubsection{Épico - Gerenciamento de eventos.}
+
+\begin{itemize}
+    \item \textbf{Feature F014}: gerenciar evento.
+
+    US17 Eu, como funcionário, desejo ser capaz de registrar eventos no calendário do aplicativo.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+    
+    US18 Eu, como funcionário, desejo ser capaz de editar informações de eventos no calendário do aplicativo.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+    
+    US19 Eu, como funcionário, desejo ser capaz de excluir eventos no calendário do aplicativo.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+    
+    \item \textbf{Feature F15}: visualizar evento.
+
+    US20 Eu, como usuário, desejo visualizar eventos no calendário do meu aplicativo.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+
+\end{itemize}
+
+%--------------------------------------------------------------------------
+
+\subsubsubsection{Épico - Gerenciamento do feed.}
+
+\begin{itemize}
+    \item \textbf{Feature F016}: gerenciar feed.
+
+    US21 Eu, como funcionário, desejo ser capaz de registrar publicações no feed de cada seção do bem-estar.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+
+    US22 Eu, como funcionário, desejo ser capaz de editar publicações no feed de cada seção do bem-estar.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+
+    US23 Eu, como funcionário, desejo ser capaz de excluir publicações no feed de cada seção do bem-estar.
+
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+
+    \item \textbf{Feature F017}: visualizar o feed.
+
+    US24 Eu, como usuário, desejo ser capaz de visualizar o feed para cada seção do bem-estar.
+    
+    \begin{itemize}
+        \item Prioridade: deveria ter.
+    \end{itemize}
+
+\end{itemize}
+
+Sendo assim, com base nos requisitos elicitados pelo Lean Inception com Personas e Brainstorming de Funcionalidades, juntamente com os requisitos elicitados pelas Histórias de Usuário, priorizados por Revisão de Funcionalidades e MoSCoW, logo a tabela ~\ref{tab:requisitosfunc} representa os requisitos funcionais para o projeto proposto.
+
+
+\begin{center}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{2cm}|p{13cm}|}
+\caption{Requisitos Funcionais} \label{tab:requisitosfunc} \\
+\hline
+\textbf{ID} & \textbf{Descrição} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{ID} & \textbf{Descrição} \\
+\hline
+\endhead
+
+        FUNC01 & Cadastro de usuário no aplicativo. \\
+        \hline
+        FUNC02 & Cadastro de funcionário no aplicativo. \\
+        \hline
+        FUNC03 & Edição dos dados cadastrais de usuários e funcionários. \\
+        \hline
+        FUNC04 & Exclusão dos dados de usuários e funcionários. \\
+        \hline
+        FUNC05 & Registro diário de formulários pelos usuários. \\
+        \hline
+        FUNC06 & Visualização de dados registrados por usuários (funcionário). \\
+        \hline
+        FUNC07 & Visualização dos formulários respondidos (usuário). \\
+        \hline
+        FUNC08 & Geração de estatísticas dos formulários respondidos. \\
+        \hline
+        FUNC09 & Criação e edição de formulários personalizados (funcionário). \\
+        \hline
+        FUNC10 & Inclusão de anotações livres associadas aos formulários. \\
+        \hline
+        FUNC11 & Envio de notificações para preenchimento dos formulários. \\
+        \hline
+        FUNC12 & Confirmação de troca de senha via e-mail. \\
+        \hline
+        FUNC13 & Envio de avisos sobre o status do aplicativo por e-mail. \\
+        \hline
+        FUNC14 & Envio de avisos sobre eventos no calendário do aplicativo. \\
+        \hline
+        FUNC15 & Registro de eventos no calendário (funcionário). \\
+        \hline
+        FUNC16 & Edição e exclusão de eventos do calendário (funcionário). \\
+        \hline
+        FUNC17 & Visualização dos eventos no calendário (usuário). \\
+        \hline
+        FUNC18 & Registro de publicações no feed por seção do bem-estar. \\
+        \hline
+        FUNC19 & Edição e exclusão de publicações no feed (funcionário). \\
+        \hline
+        FUNC20 & Visualização do feed por seção do bem-estar (usuário). \\
+        \hline
+        FUNC21 & Exportação dos dados dos formulários via CSV. \\
+        \hline
+        FUNC22 & Login com Google (OAuth 2.0). \\
+        \hline
+        FUNC23 & Geração de análises e estatísticas instituicionais. \\
+        \hline
+        
+\multicolumn{2}{r}{\small Fonte: autoria própria.} \\
+\end{longtable}
+\end{center}
+
+
+%--------------------------------------------------------------------------
+
+\subsection{Requisitos Não Funcionais.}
+
+Requisitos não funcionais são aqueles que não são mapeados facilmente por meios convencionais, ou seja, são características do sistema que não estão relacionadas diretamente com as necessidades dos usuários \cite{sommerville_2011}. Sendo assim, \citeonline{sommerville_2011} classifica esses requisitos como desempenho, segurança, usabilidade, disponibilidade, entre outros, sendo esses não perceptíveis pelo usuário, mas essenciais para o sistema.
+
+\subsubsection{FURPS+}
+
+FURPS é um modelo de classificação de requisitos de software criado para o Rational Unified Process, cujo principal objetivo é o conjunto de melhores práticas para organizar o processo de construção de software. Sendo assim, no FURPS, os requisitos são divididos em cinco principais categorias: (F)unctionality, (U)sability, (R)eliability, (P)erformance, (S)upportability \cite{campos_2008}.
+
+Além disso, existe uma extensão conhecida como \textbf{FURPS+}, onde é implementado o FURPS convencional com um tipo extra de classificação de requisitos, podendo ser requisitos de interfaces, implementações e físicos, como restrições de hardware, por exemplo \cite{sequeira2017usabilidade}.
+
+
+\begin{itemize}
+
+    \item \textbf{F: Funcionalidade}: Aspectos funcionais do software, esses requisitos foram mapeados pelas histórias de usuário, personas, entre outros. 
+
+    \item \textbf{U: Usabilidade}: Usabilidade do sistema, incluindo experiência do usuário (UX).
+
+    \item \textbf{R: Confiabilidade}: Confiabilidade do sistema, como estabilidade e resistência a falhas.
+
+    \item \textbf{P: Performance}: Performance do sistema, como velocidade e eficiência.
+
+    \item \textbf{S: Suportabilidade}: Avalia a facilidade com que o sistema pode ser mantido e suportado ao longo do tempo.
+
+    \item \textbf{+}: Requisitos como ajuda e documentação de usuário, interfaces, observações legais, entre outros.
+
+\end{itemize}
+
+Sendo assim, a partir das especificações de requisitos não funcionais propostas por \citeonline{sommerville_2011} e necessidades do sistema, é possível identificar os seguintes requisitos não funcionais para o projeto proposto:
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+    \centering
+    \caption{Requisitos Não Funcionais Classificados Pelo FURPS+.}
+    \label{tab:requisitosnaofunc}
+    
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        \textbf{ID} & \textbf{Descrição} \\
+        \hline
+        USAB01 & O sistema deve oferecer suporte a vários idiomas.  \\
+        \hline
+        USAB02 & O app deve responder imediatamente às ações do usuário, mesmo com carregamentos. \\
+        \hline
+        USAB03 & O sistema deve seguir um padrão simples para facilitar o aprendizado. \\
+        \hline
+        USAB04 & As interações devem ter feedback visual ou sonoro para orientar o usuário. \\
+        \hline
+        USAB05 & O app deve mostrar mensagens claras em caso de erro, sem atrapalhar o uso. \\
+        \hline
+        CONF01 & O usuário pode alterar seus dados pessoais. \\
+        \hline
+        CONF02 & O app deve seguir a Lei Geral de Proteção de Dados (LGPD). \\
+        \hline
+        CONF03 & O sistema deve funcionar 24 horas por dia, 7 dias por semana. \\
+        \hline
+        CONF04 & Deve existir um plano de backup para recuperação em caso de falhas. \\
+        \hline
+        PERF01 & O sistema deve suportar acessos simultâneos de diferentes usuários. \\
+        \hline
+        PERF02 & O aplicativo deve realizar autenticação no tempo médio de 10 segundos. \\
+        \hline
+        PERF03 & O tempo de resposta deve ser inferior a 2 segundos. \\
+        \hline
+        PERF04 & O sistema deve aguentar um aumento de 20\% no número de usuários. \\
+        \hline
+        SUPO01 & O app deve estar disponível para Android e iOS, com interface semelhante. \\
+        \hline
+        SUPO02 & O app deve se adaptar a diferentes dispositivos, como celulares e tablets. \\
+        \hline
+        SUPO03 & O sistema deve seguir padrões de segurança reconhecidos, como ISO 27001. \\
+        \hline
+        PLUS01 & O sistema deve oferecer suporte online, dicas e manual acessível. \\
+        \hline
+    \end{tabularx}
+    
+    \vspace{0.5em}
+    \small Fonte: autoria própria.
+\end{table}
+
+
+

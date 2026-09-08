@@ -1,0 +1,51 @@
+% !TeX root = main.tex
+\input{fixos/pacotes}
+\input{fixos/comandos}
+\input{fixos/novoscomandos}
+
+\input{editaveis/informacoes}
+\input{fixos/informacoes}
+\input{fixos/setup}
+
+\begin{document}
+
+\frenchspacing 
+\imprimircapa
+\imprimirfolhaderosto*
+
+\input{fixos/fichacatalografica}
+% \input{editaveis/errata}
+\input{fixos/folhadeaprovacao}
+\input{editaveis/dedicatoria}
+\input{editaveis/agradecimentos}
+\input{editaveis/epigrafe}
+\input{editaveis/resumo}
+\input{editaveis/abstract}
+\input{fixos/listasautomaticas}
+\input{editaveis/abreviaturas}
+\input{editaveis/simbolos}
+\input{fixos/indiceautomatico}
+
+\textual
+
+\input{editaveis/capitulos/introducao/_introducao}
+\input{editaveis/capitulos/referencia_teorico/_referencial_teorico}
+\input{editaveis/capitulos/metodologia/_metodologia}
+\input{editaveis/capitulos/consideracoes_finais/_consideracoes}
+% \input{editaveis/aspectosgerais}
+% \input{editaveis/consideracoes}
+% \input{editaveis/textoepostexto}
+% \input{editaveis/elementosdotexto}
+% \input{editaveis/elementosdopostexto}
+
+\bookmarksetup{startatroot} 
+
+\postextual
+
+\bibliography{bibliografia} 
+\input{editaveis/apendices}
+\input{editaveis/anexos}
+\printindex
+
+\end{document}
+

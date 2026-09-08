@@ -1,0 +1,566 @@
+
+
+As metodologias de software proporcionam um conjunto de práticas e plano de trabalho que se alinha com as demandas do projeto permitindo que impulsionem a produtividade e proporcione o desenvolvimento de um produto de maior valor \cite{kent_2004}. Sendo assim, a metodologia de desenvolvimento deste trabalho segue princípios de práticas ágeis e une características do Extreme Programming (XP) ao Scrum, Kanban e Lean Inception. 
+
+No que diz respeito a metodologias ágeis, os atributos de programação em pares, aplicação de testes automatizados com TDD e a refatoração foram aproveitados da metodologia XP \cite{highsmith_2000}. Já as características extraídas da metodologia Scrum foram os conceitos de sprints iterativas e incrementais, junto das reuniões diárias \cite{schwaber_scrum_2013}. Vale destacar que esta última metodologia coube adaptações no contexto de uma equipe reduzida. 
+
+O Kanban, por sua vez, foi adotado como uma ferramenta de gestão visual para acompanhar o andamento das tarefas. Por fim, o Lean Inception estruturou a definição e priorização do Mínimo Produto Viável (MVP), que possibilitou a conformidade entre os envolvidos sobre a ideia do produto final.
+
+%--------------------------------------------------------------------------
+
+
+\subsection{Metodologia Ágil}
+
+
+As metodologias ágeis foram criadas no final dos anos 1990 e seu principal objetivo era solucionar as limitações dos métodos tradicionais de desenvolvimento de software, que frequentemente resultavam em produtos inflexíveis e com longos ciclos de entrega \cite{kent_2004}.
+
+Dessa forma, o projeto proposto busca adotar metodologias ágeis como maneira de garantir maior flexibilidade, caso seja necessário a realização de ajustes, e proporcionar um processo mais produtivo, além de mitigar riscos ao longo do ciclo de vida do software.
+
+
+%--------------------------------------------------------------------------
+
+
+\subsection{Extreme Programming (XP)}
+
+O objetivo do Extreme Programming é o desenvolvimento de um software robusto. Com o uso dessa metodologia de desenvolvimento, é possível desenvolver softwares com menos defeitos, com menor custo e com maior produtividade \cite{kent_2004}. Sendo assim, a utilidade dessa metodologia é justificada pela ênfase na qualidade do código e eficiência das práticas de programação.
+
+O XP segue quatro valores fundamentais: a \textbf{comunicação}, onde o time deve ser capaz de expressar suas opiniões e se comunicar de maneira eficaz; \textbf{simplicidade}, priorizando soluções simples para atingir objetivos propostos; \textbf{coragem}, onde o desenvolvedor deve ter a disposição para refatorar e implementar sem receio; por fim, \textbf{feedback}, a fim de receber retorno construtivo \cite{kent_2004}. Sendo assim, a junção desses valores favorece o desenvolvimento eficaz, abrindo espaço para inovação e novas soluções.
+
+Segundo \citeonline{highsmith_2000}, o  Extreme Programming possui 12 práticas desejaveis, sendo elas:
+
+\begin{enumerate}
+    \item Planejamento;
+    \item Entregas frequentes;
+    \item Metáfora;
+    \item Projeto simples; 
+    \item Testes;
+    \item Refatoração;
+    \item Programação em pares; 
+    \item Propriedade coletiva; 
+    \item Integração contínua; 
+    \item 40 horas semanais; 
+    \item Cliente presente; 
+    \item Código padrão.
+\end{enumerate}
+
+Entretanto, devido ao escopo do projeto, não é viável adotar todas as 12 práticas. As práticas consideradas mais adequadas para este projeto são: programação em pares, testes, com ênfase em TDD e refatoração.
+
+\subsubsection{Test-Driven Development (TDD)}
+
+Com o intuito de promover o desenvolvimento e melhorar a qualidade do código, é utilizado o Test-Driven Development (TDD). Essa abordagem consiste em escrever testes automatizados antes de implementar novas funcionalidades. O ciclo segue o seguinte fluxo: primeiramente, se escreve um teste que irá falhar, em seguida é implementado o código para satisfazer o teste e depois a refatoração, conforme a Figura~\ref{ttdcicle}. Essa abordagem garante que o código satisfaça todos os requisitos desde o início \cite{aniche_2014}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Ciclo do Test-Driven Development.}
+    \includegraphics[width=0.8\textwidth]{figuras/ciclotdd.png}
+    \par
+    Fonte: \citeonline{aniche_2014}.
+    \par
+    \label{ttdcicle}
+\end{figure}
+
+Sendo assim, \citeonline{janzen_2005}, mostou que programadores que utilizam TDD poduzem código que passam em aproximadamente mais de 50\% dos testes caixa-preta, ademais, \citeonline{Maximilien_2003} descreveram redução em mais de 40\% de quantidade de defeitos. Além disso, ambos destacam o aumento da produtividade, devido a menor tempo debugando.
+
+Entretanto, o TDD exige um esforço inical no ínicio do desenvolvimento, segundo \citeonline{nagappan_2006}, ocorre um aumento entre 15\% a 30\% de desenvolvimento na fase inicial, porém devido aos beneficios a longo prazo desse estilo de programação isso é aceitavel, portanto, a utilização dele se prova extremamente benéfica.
+
+
+%--------------------------------------------------------------------------
+
+
+\subsection{Scrum}
+
+De certo, um dos principais \textit{frameworks} para organização e desenvolvimento é o Scrum, o mesmo é utilizado por equipes que usam \textit{sprints} iterativas a fim de enfrentar projetos de forma incremental, ou seja, a fim de solucionar um problema geral, o Scrum divide partes desse problema em \textit{sprints}, com esse processo, é gerado o artefato "Sprint Backlog" \cite{schwaber_scrum_2013}. Sendo assim, a Figura~\ref{bpmnsprint} apresenta a esquematização das \textit{sprints} utilizada neste projeto.
+
+\begin{figure}[H]
+    \centering
+    \caption{BPMN Sprint.}
+    \includegraphics[width=1\textwidth]{figuras/sprint.jpeg}
+    \par
+    Fonte: autoria própria.
+    \par
+    \label{bpmnsprint}
+\end{figure}
+
+Além disso, o Scrum se baseia em três importantes pilares, sendo eles a transparência, adaptação e inspeção. A transparência é o fator que garante que os integrantes do time saibam o que está sendo feito, para isso, durante as \textit{sprints}, é realizado um processo chamado \textit{daily}, conforme visualizado na Figura~\ref{bpmndaily}, no qual os membros compartilham seus progressos, impedimentos e planos \cite{schwaber_scrum_2013}.
+
+\begin{figure}[H]
+    \centering
+    \caption{BPMN Daily.}
+    \includegraphics[width=1\textwidth]{figuras/daily.jpeg}
+    \par
+    Fonte: autoria própria.
+    \par
+    \label{bpmndaily}
+\end{figure}
+
+A adaptação é outro fator fundamental para o Scrum, o mesmo pode ser adaptado em diversos cenários, idealmente a metodologia Scrum é realizada em um time com 3 a 10 pessoas. Entretanto, devido ao grande número de empresas com somente um único desenvolvedor, foi criado o Scrum Solo, uma adaptação do Scrum e do Personal Software Process, com o objetivo de obter os benefícios do Scrum para equipes com uma única pessoa \cite{pagotto_2016}. 
+
+Sendo assim, é possível adaptar elementos do Scrum para desenvolvimento em dupla, se baseando no conceito de Scrum Solo. O mínimo de membros para o Scrum se deve aos três principais papéis que o mesmo possui: o \textit{product owner}, \textit{scrum master} e \textit{dev team}. Logo, a fim de ocupar todos os papéis, é necessário que ambos da dupla ocupem a posição de \textit{dev team} e outra arbitrária \cite{schwaber_scrum_2013}.
+
+
+%--------------------------------------------------------------------------
+
+
+\subsection{Kanban}
+
+A fim de favorecer a inspeção, um dos pilares do Scrum, é recomendado o uso do Kanban, devido à sua capacidade de fornecer uma visão clara sobre as tarefas em andamento. O Kanban é um sistema de gestão visual que utiliza cartões para exibir a situação geral das tarefas. Ainda mais, o Kanban melhora o desempenho em 50% de tarefas devido à sua capacidade de indicar e limitar o fluxo de trabalho em andamento \cite{skarin2015}.
+
+Sendo assim, é possível definir o Kanban em três tipos principais: produção, movimentação e E-Kanban. O Kanban de Produção, que possui o intuito central de mostrar o quadro de desenvolvimento de um projeto em três baias: \textit{todo}, \textit{doing} e \textit{done}, que representam as tarefas a fazer, em desenvolvimento e feitas respectivamente, cuja lógica pode ser visualizada na figura~\ref{bpmnkanban}.
+
+\begin{figure}[H]
+    \centering
+    \caption{BPMN Kanban.}
+    \includegraphics[width=1\textwidth]{figuras/kanban.jpeg}
+    \par
+    Fonte: autoria própria.
+    \par
+    \label{bpmnkanban}
+\end{figure}
+
+Ademais, existe o Kanban de Movimentação para gerenciar processos em produção e, por fim, o E-Kanban, que é uma versão online do Kanban de produção, utilizando softwares para auxiliar a visualização do quadro de tarefas.
+
+Em suma, as tarefas a serem disponibilizadas no Quadro Kanban encontram-se no Backlog do Produto, no qual estão todas as tarefas previstas para o desenvolvimento do projeto proposto. Dessa forma, o uso combinado do Kankan com ferramentas de \textit{sprints} contribuirá para a organização e acompanhamento das tarefas \cite{skarin2015}. 
+
+
+%--------------------------------------------------------------------------
+
+
+\subsection{Lean Inception}
+
+É necessário um método para a definição do mínimo produto viável (MVP). Sendo assim, a metodologia Lean Inception se adequa nesse quesito, a mesma foi desenvolvida por Paulo Caroli em 2017, conhecido por sua grande influência nas metodologias ágeis \cite{caroli2017lean}.
+
+A metodologia consiste em 4 etapas distintas, que garantem que o time terá uma visão compartilhada para o produto ao longo do processo. A primeira etapa é a visão de produto, onde são desenvolvidos os artefatos "Visão de Produto" e "É - Não É - Faz - Não Faz", com o objetivo principal de alinhar toda a equipe sobre o propósito do produto. Em seguida, na segunda fase, com o time alinhado, é feito o processo para a identificação de usuários, perfis e necessidades, produzindo os artefatos "Personas" e "Jornadas de Usuários". Posteriormente, é realizado o "Brainstorm de Funcionalidades" para elicitar requisitos \cite{caroli2017lean}.
+
+Logo, com as necessidades prontas, é feita a terceira fase, na qual é realizada a priorização das funcionalidades e é desenvolvido o artefato "Revisão", onde é agregado a dificuldade de cada funcionalidade. Enfim, na última fase é feito o "Sequenciador" e "Canvas do MVP" que organizam as funcionalidades mínimas para o produto \cite{caroli2017lean}.
+
+Por fim, a aplicação desta metodologia exige um ambiente colaborativo, e, com esse propósito foi desenvolvido um template na plataforma Miro por \citeonline{miro_lean}, com o intuito de viabilizar a realização dessa dinâmica.
+
+\subsubsection{Kick-Off}
+
+O Kick-off é a etapa inicial do Lean Inception, responsável por apresentar a metodologia e seus objetivos. Nesse momento, são introduzidos conceitos fundamentais como MVP e demais termos técnicos, além de alinhar as expectativas e papéis dos participantes \cite{caroli2017lean}. 
+
+Com os participantes alinhados, são expostas as ideias de possíveis produtos e é escolhida a mais promissora para a utilização desta metodologia. O produto escolhido passa a ser o foco das demais atividades da Lean Inception, onde será detalhado e refinado progressivamente \cite{caroli2017lean}.
+
+\subsubsection{Visão de Produto}
+
+A visão de produto é um artefato cujo objetivo principal é estabelecer, de forma clara e concisa, a proposta central do produto a ser desenvolvido. Ela descreve o propósito do produto, o público-alvo e os principais diferenciais em relação ao mercado \cite{caroli2017lean}. Sendo assim, a realização deste artefato proporcionou o seguinte resultado:
+
+\begin{itemize}
+
+    \item \textbf{Para}: Estudantes e profissionais em meio universitário.
+
+    \item \textbf{Cujo}: Os indivíduos precisam de auxílio psicológico ou desejam adotar hábitos saudáveis.
+
+    \item \textbf{O}: Seed.
+
+    \item \textbf{É um}: Aplicativo mobile.
+
+    \item \textbf{Que}: Auxilia os estudantes a encontrarem apoio nas IES.
+
+    \item \textbf{Diferentemente do}: Daylio ou outros aplicativos que auxiliam apenas com a adoção de hábitos saudáveis.
+
+    \item \textbf{O nosso produto}: Auxilia os indivíduos dentro do meio universitário em questões de saúde mental ao coletar dados e oferecer informações condizentes, além de fomentar a prática de hábitos saudáveis.
+
+\end{itemize}
+
+\subsubsection{É - Não É - Faz - Não Faz}
+
+Essa atividade tem como objetivo refinar a ideia inicial do produto, com foco na definição do MVP e na eliminação de funcionalidades excedentes ou desnecessárias. Neste momento, é fundamental realizar questionamentos técnicos, como aspectos de portabilidade, funcionalidades, entre outros \cite{caroli2017lean}. Após essa etapa, foi configurado da seguinte maneira para o projeto em questão:
+
+\begin{itemize}
+
+    \item \textbf{É}: aplicativo mobile, multiplataforma, gratuito, \textit{Open source}.
+
+    \item \textbf{Não é}: chat com profissionais de saúde, rede social.
+
+    \item \textbf{Faz}: relatórios sobre o bem-estar do estudante, formulários para auxiliar profissionais, feedbacks personalizáveis, fornecer pontos de ajuda nas IES.
+
+    \item \textbf{Não faz}: não se comunica diretamente com profissionais, não expõe dados individuais, não propõe diagnósticos, não agenda consultas.
+
+\end{itemize}
+
+\subsubsection{Objetivos do Negócio}
+
+O objetivo de negócio tem como finalidade esclarecer de forma conjunta o propósito do produto. Nesta etapa, os participantes devem compartilhar o entendimento sobre os resultados esperados do produto \cite{caroli2017lean}. Ao final da atividade, os objetivos são consolidados e agrupados, para o projeto os principais objetivos foram:
+
+\begin{itemize}
+
+    \item \textbf{Gerenciamento de Dados}: 
+
+        \begin{itemize}
+
+            \item Anotações livres;
+
+            \item Exibição em gráficos e dashboards;
+
+            \item Análise de confiabilidade dos dados;
+
+            \item Correlação de dados de formulários;
+
+            \item Formulários diários sobre seções do bem-estar;
+
+            \item Formulários personalizados.
+
+        \end{itemize}
+
+    \item \textbf{Seções do bem-estar}:
+
+        \begin{itemize}
+
+            \item Seções sobre sono, hidratação, social, alimentação, exercício físico, saúde mental, autoconhecimento, lazer e acadêmico/trabalho.
+
+        \end{itemize}
+
+    \item \textbf{Soluções de auxílio}: 
+
+        \begin{itemize}
+
+            \item Disponibilização de eventos da IES do usuário;
+
+            \item Feed (mural) de informações;
+
+            \item Análise estatística das informações públicas dos usuários.
+
+        \end{itemize}
+
+    \item \textbf{Notificações}: 
+
+        \begin{itemize}
+
+            \item Alerta para preencher formulário;
+
+            \item Alerta para eventos.
+
+        \end{itemize}
+
+\end{itemize}
+
+\subsubsection{Personas}
+
+Após a definição do produto, torna-se essencial compreender profundamente o perfil dos usuários que irão interagir com ele. Para isso, são elaboradas personas, sendo essas representações fictícias, porém realistas, de usuários típicos, baseadas em comportamentos, necessidades e objetivos reais \cite{caroli2017lean}. Para o projeto proposto, foram criados três perfis de usuários.
+
+\subsubsubsection{Primeira Persona}
+
+\begin{itemize}
+    \item \textbf{Perfil}: 
+        \begin{itemize}
+            \item Nome: José.
+            \item Idade: 23 anos.
+            \item Profissão: Estudante universitário.
+            \item Hábitos: Possui hábitos de vida pouco saudáveis.
+        \end{itemize}
+
+
+    \item \textbf{Objetivos}:
+        \begin{itemize}
+            \item Melhorar o rendimento e o foco na vida acadêmica;
+            \item Adotar práticas mais saudáveis no dia a dia;
+            \item Desenvolver maior autoconsciência e bem-estar.
+        \end{itemize}
+
+    \item \textbf{Frustrações}: 
+        \begin{itemize}
+            \item Baixo desempenho acadêmico;
+            \item Má experiência com aplicativos de difícil usabilidade;
+            \item Sensação de sobrecarga e desorganização na rotina.
+        \end{itemize}
+
+    \item \textbf{Necessidades}: 
+        \begin{itemize}
+            \item Sugestões práticas e direcionadas para melhorar aspectos específicos da rotina;
+            \item Visibilidade clara de suas dificuldades e pontos a desenvolver;
+            \item Lembretes diários que incentivem pequenas ações de melhoria;
+            \item Ferramenta para registrar livremente suas reflexões e anotações pessoais.
+        \end{itemize}
+\end{itemize}
+
+
+\subsubsubsection{Segunda Persona}
+
+\begin{itemize}
+    \item \textbf{Perfil}: 
+        \begin{itemize}
+            \item Nome: Louro Silva.
+            \item Idade: 32 anos.
+            \item Profissão: Analista de dados.
+            \item Hábitos: Hábitos saudáveis, porém prefere a madrugada.
+        \end{itemize}
+
+
+    \item \textbf{Objetivos}:
+        \begin{itemize}
+            \item Obter uma ferramenta eficiente para coleta de dados;
+            \item Garantir qualidade, consistência e disponibilidade das informações;
+            \item Realizar análises que contribuam para identificar problemas e orientar ações na instituição.
+        \end{itemize}
+
+    \item \textbf{Frustrações}: 
+        \begin{itemize}
+            \item Dificuldade em encontrar dados relevantes e suficientes para projetos;
+            \item Falta de confiabilidade nos dados coletados (dados inconsistentes ou mal fundamentados);
+            \item Baixa qualidade ou ausência de ferramentas eficazes para análise e coleta.
+        \end{itemize}
+
+    \item \textbf{Necessidades}: 
+        \begin{itemize}
+            \item Solução digital que funcione 24/7, com alta performance e resposta rápida;
+            \item Ferramenta capaz de identificar carências e gargalos institucionais com clareza;
+            \item Apoio na coleta e organização de informações confiáveis para os projetos.
+        \end{itemize}
+\end{itemize}
+
+\subsubsubsection{Terceira Persona}
+
+\begin{itemize}
+    \item \textbf{Perfil}: 
+        \begin{itemize}
+            \item Nome: Ana Maria
+            \item Idade: 20 anos
+            \item Profissão: Estudante de Engenharia de Energia
+            \item Hábitos: Hábitos não saudáveis, com problemas psicológicos.
+        \end{itemize}
+
+
+    \item \textbf{Objetivos}:
+        \begin{itemize}
+            \item Encontrar meios de socialização e participar de eventos acadêmicos e sociais;
+            \item Equilibrar sua vida acadêmica com atividades de bem-estar;
+            \item Sentir-se mais conectada com a comunidade universitária.
+        \end{itemize}
+
+    \item \textbf{Frustrações}: 
+        \begin{itemize}
+            \item Baixo desempenho na dimensão social do bem-estar;
+            \item Dificuldade em encontrar espaços e oportunidades de socialização;
+            \item Falta de ferramentas intuitivas que ajudem na integração com o ambiente universitário.
+        \end{itemize}
+
+    \item \textbf{Necessidades}: 
+        \begin{itemize}
+            \item Calendário de eventos sociais e acadêmicos centralizado e de fácil acesso;
+            \item Aplicativo com boa usabilidade, fácil de usar e com aprendizado rápido;
+            \item Garantia de privacidade e conformidade com a LGPD (Lei Geral de Proteção de Dados), pois tem medo de seus dados vazarem.
+            \item Ferramenta que auxilie na organização de atividades voltadas ao bem-estar;
+        \end{itemize}
+\end{itemize}
+
+\subsubsection{Jornadas dos Usuários}
+
+A jornada do usuário representa o percurso que um usuário realiza para atingir um objetivo específico ao interagir com o produto. O principal objetivo desse artefato é mapear e documentar os possíveis pontos de contato entre o usuário e o sistema, identificando suas ações, expectativas e eventuais dificuldades ao longo do caminho \cite{caroli2017lean}. A seguir, são apresentados os artefatos resultantes da aplicação dessas jornadas às personas do projeto:
+
+\begin{itemize}
+    \item \textbf{Primeira Persona (José)}:
+    \begin{enumerate}
+        \item Acorda cansado após uma noite mal dormida;
+        \item Toma café com pressa antes da aula;
+        \item Chega à universidade com dificuldade para se concentrar;
+        \item Acessa o aplicativo de bem-estar no intervalo entre as aulas;
+        \item Visualiza um painel com indicadores de saúde e desempenho acadêmico;
+        \item Percebe que está com baixa pontuação em “hábitos de sono” e “produtividade”;
+        \item Recebe sugestões práticas para melhorar a rotina diária (ex.: dormir mais cedo, usar técnica Pomodoro);
+        \item Define metas semanais para pequenas melhorias;
+        \item Ativa lembretes personalizados para ajudar a manter a rotina;
+        \item Ao fim da semana, acessa um relatório com seu progresso e ajustes sugeridos;
+        \item Sente-se motivado a continuar usando a ferramenta.
+    \end{enumerate}
+
+    \item \textbf{Segunda Persona (Louro Silva)}: 
+    \begin{enumerate}
+        \item Inicia o expediente à noite em sua sala de análise de dados;
+        \item Abre o aplicativo de gestão de carências institucionais;
+        \item Verifica pendências em projetos e áreas com falta de dados;
+        \item Acessa a ferramenta de coleta de dados com formulário otimizado;
+        \item Preenche os campos com dados atualizados dos setores da instituição;
+        \item Visualiza gráficos em tempo real com as principais carências identificadas;
+        \item Filtra os dados por departamento e grau de urgência;
+        \item Gera um relatório em PDF para reunião com a gestão;
+        \item Envia o relatório por e-mail diretamente pelo sistema;
+        \item Sugere ajustes na interface via canal de feedback integrado;
+        \item Finaliza a sessão com os dados salvos automaticamente na nuvem.
+    \end{enumerate}
+
+    \item \textbf{Terceira Persona (Ana Maria)}: 
+    \begin{enumerate}
+        \item Acorda e toma café assistindo vídeos de humor para relaxar;
+        \item Abre o aplicativo no celular para ver os eventos do dia;
+        \item Explora o calendário e encontra um evento cultural no campus;
+        \item Verifica se há vagas disponíveis e se inscreve;
+        \item Confere o nível do seu bem-estar social no painel do app;
+        \item Recebe uma recomendação de evento com base em seu perfil e interesse por arte;
+        \item Aproveita para registrar uma anotação pessoal sobre sua experiência anterior;
+        \item Vai ao evento;
+        \item Se sente mais conectada e motivada a participar de novos eventos.
+    \end{enumerate}
+\end{itemize}
+
+
+\subsubsection{Brainstorming de Funcionalidades}
+
+Após as etapas anteriores, nas quais são obtidos os objetivos do produto e as necessidades dos usuários. Brainstorming de Funcionalidades atua como uma maneira de fornecer funcionalidades que atendam às necessidades das personas criadas \cite{caroli2017lean}.  
+
+Durante a sessão, são feitas perguntas como: “Quais funcionalidades são essenciais para que esta persona atinja seus objetivos?”, percorrendo cada persona individualmente. Ao final, todas as sugestões são consolidadas, formando um panorama inicial das funcionalidades desejadas para o produto \cite{caroli2017lean}. A Figura~\ref{brainstormingfunc} representa o Brainstorming de funcionalidades elaborado para o projeto.
+
+\begin{figure}[H]
+    \centering
+    \caption{Brainstorming de Funcionalidades.}
+    \includegraphics[width=1\textwidth]{figuras/bfuncionalidades.png}
+    \par
+    Fonte: autoria própria.
+    \par
+    \label{brainstormingfunc}
+\end{figure}
+
+\subsubsection{Revisão (Técnica, de Negócio e Experiência do Usuário)}
+
+A revisão técnica, de negócio e de experiência do usuário (UX) tem como objetivo avaliar as funcionalidades levantadas durante o brainstorming, classificando-as com base em três critérios principais: valor de negócio, esforço técnico e impacto na experiência do usuário \cite{caroli2017lean}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Classificação de funcionalidades - Lean Inception.}
+    \includegraphics[width=0.8\textwidth]{figuras/escalaesforco.png}
+    \par
+    Fonte: \citeonline{caroli2017lean}.
+    \par
+    \label{esforcolean}
+\end{figure}
+
+Em seguida, com base na classificação das funcionalidades, é utilizado o Gráfico do Semáforo, cujo objetivo principal é avaliar o nível de confiança da equipe de desenvolvimento em relação às tarefas propostas. Esse gráfico auxilia na análise da clareza sobre o que deve ser feito versus como deve ser feito \cite{caroli2017lean}.
+
+Sendo assim, as funcionalidades são distribuídas em zonas coloridas: itens posicionados na zona verde indicam alto nível de confiança e clareza; já as zonas vermelha devem ser evitadas e itens em zonas críticas devem ser excluídos do escopo \cite{caroli2017lean}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Gráfico do Semáforo.}
+    \includegraphics[width=0.5\textwidth]{figuras/revisaolean.png}
+    \par
+    Fonte: \citeonline{caroli2017lean}.
+    \par
+    \label{corlean}
+\end{figure}
+
+Por meio desta etapa, as funcionalidades levantadas durante o Brainstorming de Funcionalidades foram avaliadas quanto ao seu valor de negócio, esforço técnico e impacto na experiência do usuário (UX). A Figura~\ref{revisaolean} apresenta o resultado da revisão realizada para o projeto.
+
+\begin{figure}[H]
+    \centering
+    \caption{Revisão das funcionalidades propostas (Seed).}
+    \includegraphics[width=1\textwidth]{figuras/revisaoseed.png}
+    \par
+    Fonte: autoria própria com base em \citeonline{caroli2017lean}.
+    \par
+    \label{revisaolean}
+\end{figure}
+
+\subsubsection{Sequenciador}
+
+O sequenciador tem como objetivo organizar as funcionalidades em ondas, de forma a distribuir o trabalho progressivamente e evitar a sobrecarga da equipe de desenvolvimento. De acordo com \citeonline{caroli2017lean}, cada onda deve seguir alguns critérios para garantir equilíbrio entre valor entregue, esforço técnico e viabilidade:
+
+\begin{enumerate}
+    \item Cada onda deve conter, no máximo, três cartões;
+
+    \item Não é permitido que todos os cartões sejam classificados como vermelhos ou amarelos;
+
+    \item Cada onda pode conter, no máximo, um cartão vermelho;
+
+    \item A soma dos esforços técnicos não deve ultrapassar 5;
+
+    \item A soma dos valores de negócio e de experiência do usuário (UX) não deve ser inferior a 4 em cada critério;
+
+    \item Cartões com dependência entre si devem ser alocados em ondas distintas.
+\end{enumerate}
+
+Com base nesses critérios, a Figura~\ref{sequenciadorlean} apresenta o sequenciador elaborado para o projeto.
+
+\begin{figure}[H]
+    \centering
+    \caption{Sequenciador (Seed).}
+    \includegraphics[width=0.7\textwidth]{figuras/sequenciador.png}
+    \par
+    Fonte: autoria própria com base em \citeonline{caroli2017lean}.
+    \par
+    \label{sequenciadorlean}
+\end{figure}
+
+\subsubsection{Canvas MVP}
+
+Ao final da Lean Inception, é elaborado o Canvas MVP, que consolida as principais definições do produto mínimo viável em sete blocos estruturados \cite{caroli2017lean}. Esses blocos são:
+
+\begin{enumerate}
+    \item Proposta do MVP;
+    \item Personas Segmentadas;
+    \item Jornadas;
+    \item Funcionalidades;
+    \item Resultado esperado;
+    \item Métricas para validas as hipóteses de négocio;
+    \item Custos e cronograma.
+\end{enumerate}
+
+A Figura~\ref{canvamvp} representa o produto final gerado a partir da aplicação da metodologia Lean Inception, reunindo as informações essenciais para a construção e validação do MVP.
+
+\begin{figure}[H]
+    \centering
+    \caption{Canvas MVP (Seed).}
+    \includegraphics[width=1\textwidth]{figuras/mvpcanvas.png}
+    \par
+    Fonte: autoria própria com base em \citeonline{caroli2017lean}.
+    \par
+    \label{canvamvp}
+\end{figure}
+
+%--------------------------------------------------------------------------
+
+\subsection{Questionário}
+
+O questionário é uma ferramenta eficiente para a obtenção de dados quantitativos e qualitativos de um público-alvo extenso \cite{vazquez2016engenharia}. Com o intuito de complementar o escopo do produto a ser desenvolvido com base na perspectiva dos possíveis usuários, foi elaborado o questionário apresentado no Apêndice~\ref{apendice:questionario}.
+
+A primeira pergunta vista na Figura ~\ref{q2} tem como objetivo filtrar o público alvo do formulário. Dessa forma as respostas coletadas das questões subsequentes restringem-se apenas à parte interessada - esta que está inserida na cenário universitário. Além disso, optou-se por colher os dados da comunidade atual a fim de analisar o perfil presente dos indivíduos inseridos no contexto universitário.
+
+As duas seguintes perguntas, observadas nas Figuras ~\ref{q3} e ~\ref{q4}, compõem a primeira seção do formulário e estão relacionadas ao tempo de permanência na instituição e ao respectivo campus do participante do formulário aplicado. Tais informações são relevantes para a análise prévia da presença de correlações entre estes dados com as autoavaliações de determinantes da saúde do colaborador - estas representadas nas Figuras ~\ref{q5}, ~\ref{q6} e ~\ref{q7}, que constituem a segunda seção do formulário.
+
+Assim, os determinantes da saúde relevantes e considerados acessíveis de serem tratados por projetos elaborados pela universidade foram avaliados. Ademais, foram coletados dados qualitativos a respeito da presença de demais variáveis da saúde, que identificaram outros tópicos, sendo eles: \textbf{(1) }acessibilidade na instituição; \textbf{(2)} vida financeira; \textbf{(3)} acesso a cultura e \textbf{(4)} vida amorosa. Esses resultados estão ilustrados nas Figuras ~\ref{q8} e ~\ref{qa}.
+
+Por fim, na terceira seção do inquérito, torna-se evidente a necessidade do desenvolvimento de uma alternativa tecnológica de promoção da saúde na Universidade de Brasília (UnB). Isso porque é possível verificar na Figura ~\ref{q9} que 58\% dos participantes acreditam que sua instituição de ensino não possui serviços de apoio a saúde mental ou de fomentação de bons hábitos de vida. Tendo em vista que nesta coleta de dados, apenas um dos interrogados não está inserido na UnB, trata-se de um dado alarmante, já que esta é formalmente vista como promotora da saúde.
+
+A justificativa do desenvolvimento deste software também se alicerça na Figura ~\ref{q10} que mostra uma aceitação de 58\% dos participantes em relação a um aplicativo voltado à saúde mental e à manutenção de hábitos de vida. Da mesma forma, os dados previamente vistos nas Figuras ~\ref{q5} e ~\ref{q7}, que exibem uma avaliação mediana na saúde geral e preocupante no estado mental dos participantes, demonstram tal necessidade. 
+
+Isto posto, foi avaliado na Figura ~\ref{q11} as funcionalidades que esse sistema pode dispor. As sugestões exibidas na Figura ~\ref{qb} foram adaptadas ao escopo inicial estipulado com o intuito de obter êxito neste projeto e contribuir para a promoção da saúde na Universidade de Brasília.
+
+\subsubsection{Análise de Confiabilidade}
+
+Um aspecto fundamental da avaliação do questionário proposto é a análise de sua confiabilidade. Para isso, foi calculado o coeficiente Alfa de Cronbach, cujo resultado foi de 0.6949, com intervalo de confiança de [0.519 0.828], indicando um nível aceitável de consistência interna para a utilização dos dados coletados.
+
+Além disso, foi realizada uma análise de correlação entre os itens do questionário, conforme apresentado na Figura~\ref{correlacao}, cujas perguntas utilizadas estão listadas a seguir:
+
+\begin{itemize}
+    \item \textbf{P1} – Há quanto tempo você faz parte da comunidade universitária?
+    \item \textbf{P2} – Caso você esteja inserido na instituição da UnB, de qual campus você faz parte?
+    \item \textbf{P3} – Alimentação
+    \item \textbf{P4} – Hidratação
+    \item \textbf{P5} – Autoconhecimento
+    \item \textbf{P6} – Vida Acadêmica
+    \item \textbf{P7} – Mobilidade (facilidade de logística na rotina)
+    \item \textbf{P8} – Saúde Mental
+    \item \textbf{P9} – Acesso à saúde
+    \item \textbf{P10} – Condição de moradia
+    \item \textbf{P11} – Convívio Social (amigos, família e companheiros)
+    \item \textbf{P12} – Exercício físico
+    \item \textbf{P13} – Realização de hobbies
+    \item \textbf{P14} – Uso de Redes Sociais
+    \item \textbf{P15} – Uso de substâncias (álcool, cigarro, drogas ilícitas)
+    \item \textbf{P16} – Prática de algum vício
+    \item \textbf{P17} – No geral, como você avalia a sua saúde? (1 estrela para péssimo até 5 estrelas para excelente)
+    \item \textbf{P18} – Você acredita que a sua instituição oferece serviços de apoio à saúde mental ou de fomentação de bons hábitos de vida?
+    \item \textbf{P19} – Você usaria um aplicativo da sua instituição universitária para o acompanhamento da sua saúde mental e a manutenção de hábitos de vida?
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \caption{Matriz de correlação do questionário.}
+    \includegraphics[width=1\textwidth]{figuras/correlacao1.png}
+    \par
+    Fonte: autoria própria.
+    \label{correlacao}
+\end{figure}
+
+Em suma, a matriz de correlação evidencia a relação entre as variáveis, permitindo identificar possíveis padrões de associação entre os aspectos avaliados. Observa-se, por exemplo, uma correlação moderada entre os itens \textbf{P3} (Alimentação) e \textbf{P4} (Hidratação), bem como entre \textbf{P8} (Saúde Mental) e \textbf{P17} (Avaliação geral da saúde), o que sugere uma relação entre o bem-estar físico e psicológico.
+
+Vale ressaltar, contudo, que o questionário utilizado possui natureza exploratória e estrutura simples, o que pode limitar a profundidade das análises. Ainda que os resultados indiquem padrões confiáveis dentro da amostra coletada, não se pode generalizar integralmente as conclusões para toda a população universitária.
