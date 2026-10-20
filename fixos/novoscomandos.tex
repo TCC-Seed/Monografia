@@ -55,3 +55,28 @@
   \end{capa}
 }
 
+\renewcommand{\listingscaption}{Código}
+\renewcommand{\listoflistingscaption}{Lista de códigos}
+\setminted{
+	fontsize=\small,
+	linenos,
+	frame=single,
+	breaklines,
+	tabsize=2
+}
+
+\newcounter{contcodigo}
+
+\newcommand{\codigoarq}[5]{%  fonte, linguagem, arquivo, legenda, label
+	\par\vspace{\baselineskip}%
+	\begin{samepage}%
+	{\centering\small\refstepcounter{contcodigo}\label{#5}%
+	Código~\thecontcodigo{} -- #4\par}%
+	\nopagebreak\vspace{-0.3\baselineskip}%
+	{\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}%
+	\setlength{\parskip}{0pt}%
+	\inputminted{#2}{#3}\par}%
+	\nopagebreak\vspace{-0.3\baselineskip}%
+	{\centering\small Fonte: #1.\par}%
+	\end{samepage}%
+	\par\vspace{\baselineskip}}
