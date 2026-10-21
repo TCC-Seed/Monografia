@@ -1,47 +1,34 @@
-% ============================================================================
-% Seção: Desenvolvimento orientado por IA
-% Marcadores [VERIFICAR] indicam afirmações ainda sem fonte confirmada.
-% Os comentários "% NOTA:" são para os autores e devem ser removidos.
-% Pacotes necessários: minted, tabularx, longtable, float (macros \codigoarq
-% e contador contcodigo definidos no preâmbulo, como já combinado).
-% ============================================================================
 
+Esta seção apresenta o processo de desenvolvimento assistido por agentes de IA adotado como método para a implementação do software Seed. O processo combina especificações explícitas, agentes com permissões restritas, desenvolvimento orientado a testes e verificações de segurança, mantendo as decisões de arquitetura e de requisitos sob responsabilidade do engenheiro. Trata-se de uma proposta de método, cuja efetividade será avaliada na Subseção~\ref{subsec:avaliacao-ia}.
 
-Esta seção descreve o processo de desenvolvimento assistido por agentes de IA proposto para a implementação do Seed no TCC2. O processo combina especificações explícitas, agentes com permissões restritas, desenvolvimento orientado a testes e verificações de segurança, mantendo as decisões de arquitetura e de requisitos sob responsabilidade do engenheiro. Trata-se de uma proposta de método, cuja efetividade será avaliada no TCC2 (Subseção~\ref{subsec:avaliacao-ia}), e não de uma garantia de qualidade.
-
-%----------------------------------------------------------------------------
 \subsection{Fundamentos e limitações dos modelos de linguagem}
 \label{subsec:llm-limites}
 
-Modelos de linguagem de grande porte (\textit{Large Language Models}, LLMs) produzem texto de forma sequencial: a cada passo, escolhem a próxima unidade, denominada \textit{token}, a partir de uma distribuição de probabilidades condicionada ao contexto já existente. Como a escolha envolve amostragem, o mesmo \textit{prompt} pode gerar respostas diferentes, o que torna os resultados pouco padronizados. MATHEWS 2024 fixam a semente e a temperatura em seus experimentos para melhorar a replicabilidade, mas reconhecem que algum grau de imprevisibilidade permanece. (AKITA, 2026).
+Modelos de linguagem de grande porte (\textit{Large Language Models}, LLMs) produzem texto de forma sequencial, ou seja, a cada passo, escolhem a próxima unidade, denominada \textit{token}, a partir de uma distribuição de probabilidades condicionada ao contexto já existente. Como essa seleção envolve amostragem, o mesmo \textit{prompt} pode resultar em respostas diferentes, o que torna os resultados pouco padronizados \cite{akita2026vibecoding}.
 
-% EM https://www.youtube.com/watch?v=U3bZavG8qQY
-% NOTA: a anotação "cerca de 40% do conteúdo serve para agradar o usuário" e a
-% analogia da "lootbox" foram removidas por não terem fonte localizada.
+Além da variabilidade, observa-se nas LLMs a tendência de modelos a concordar com as premissas apresentadas pelo usuário, fenômeno designado na literatura como \textit{sycophancy}. Na prática, perguntar a um modelo se um texto contém erros e perguntar se ele está perfeito pode produzir respostas de teor oposto \cite{akita2026vibecoding}. Essa tendência justifica uma regra do processo proposto, no qual o agente não decide requisitos nem arquitetura, e as ambiguidades são devolvidas ao engenheiro por meio da etapa de esclarecimento descrita na Subseção~\ref{subsec:sdd}.
 
-Outra limitação é a tendência de modelos a concordar com a premissa do usuário, fenômeno conhecido em inglês como \textit{sycophancy}. Na prática, perguntar se um texto contém erros e perguntar se ele está perfeito pode produzir respostas de teor oposto. [VERIFICAR: citar Sharma et al.] Essa tendência justifica uma regra do processo proposto: o agente não decide requisitos nem arquitetura, e as ambiguidades são devolvidas ao engenheiro por meio da etapa de esclarecimento descrita na Subseção~\ref{subsec:sdd}.
+Essas limitações adquirem maior relevância quando o modelo deixa de apenas sugerir e passa a agir. Segundo \citeonline{anthropic_academy}, o uso convencional de um LLM consiste em fornecer-lhe insumos por meio de \textit{prompts} e receber sugestões, cabendo ao usuário aplicá-las. Os agentes de IA, por sua vez, têm acesso para ler, modificar e pesquisar arquivos do ambiente de desenvolvimento e, mediante autorização, executar código diretamente, como ocorre com o Claude Code instalado na máquina do desenvolvedor.
 
-
-A qualidade do código gerado também preocupa. \citeonline{pearce_2021} geraram 1.689 programas em 89 cenários associados a fraquezas conhecidas de segurança com o GitHub Copilot, e uma parcela expressiva continha vulnerabilidades potencialmente exploráveis. [VERIFICAR: confirmar o percentual diretamente no artigo.] \citeonline{perry_2022} constataram, em estudo com participantes, que quem usou um assistente de IA escreveu código menos seguro e acreditou mais que ele era seguro. Esses resultados sustentam duas escolhas do processo: o engenheiro permanece como decisor e a verificação de segurança é automatizada e independente do agente. CONCLUIR AQUI
+A qualidade do código gerado também constitui motivo de preocupação. \citeonline{perry_2022} constataram, em estudo com participantes, que aqueles que utilizaram um assistente de IA escreveram código menos seguro e, ao mesmo tempo, demonstraram maior confiança na segurança do que produziram. Esses resultados sustentam duas escolhas do processo proposto: o engenheiro permanece como responsável pelas decisões, e a verificação de segurança é automatizada e independente do agente. Para isso, são adotadas ferramentas de análise estática (\textit{Static Application Security Testing}, SAST) e dinâmica (\textit{Dynamic Application Security Testing}, DAST), voltadas à identificação de vulnerabilidades, e o SonarQube, voltado à avaliação da qualidade do código.
 
 
 \subsection{\textit{Vibe Coding} x Codificação Agêntica}
 \label{subsec:agentic}
 
-Popularizado por Andrej Karpathy em fevereiro de 2025, o termo \textit{vibe coding} refere-se a programar delegando à IA a escrita do código e dispensando a sua leitura. A literatura recente tem insistido que usar um LLM, por si só, não basta para caracterizar a prática. Segundo a fronteira traçada por Simon Willison, o código gerado por um modelo, mas revisado, testado e compreendido, equivale a empregar o LLM como assistente de digitação, e não o \textit{vibe coding} \cite{vibe_review_2026}. O que define a prática, nessa leitura, é o afastamento do desenvolvedor em relação ao código.
+Popularizado por Andrej Karpathy em fevereiro de 2025, o termo \textit{vibe coding} refere-se a programar delegando à IA a escrita do código e dispensando a sua leitura. A literatura recente tem insistido que usar um LLM, por si só, não basta para caracterizar a prática. Segundo a fronteira traçada por Simon Willison, o código gerado por um modelo, mas revisado, testado e compreendido, equivale a empregar o LLM como assistente de digitação, e não o \textit{vibe coding} \cite{vibe_review_2026}.
 
-A postura oposta é chamada por \citeonline{beck_augmented_2025} de \textit{augmented coding}: mantêm-se os valores da engenharia de software tradicional, como testes, código limpo e \textit{commits} pequenos, e se difere somente quando digitado manualmente. \citeonline{sapkota_2025} separam o \textit{vibe coding}, de caráter interativo e exploratório, da \textit{agentic coding}, em que agentes planejam, executam, testam e iteram com pouca intervenção humana, e sugerem que os dois paradigmas sejam combinados em um ciclo centrado no humano.
+A postura oposta é chamada por \citeonline{beck_augmented_2025} de \textit{augmented coding} que mantem os valores da engenharia de software tradicional, como testes, código limpo e \textit{commits} pequenos, e se difere somente quando digitado manualmente. \citeonline{sapkota_2025} separam o \textit{vibe coding}, de caráter interativo e exploratório, da \textit{agentic coding}, em que agentes planejam, executam, testam e iteram com pouca intervenção humana, e sugerem que os dois paradigmas sejam combinados em um ciclo centrado no humano.
 
 Segundo \citeonline{ge_vibe_2025}, as práticas de desenvolvimento com agentes de código podem ser agrupadas em cinco modelos: (I) automação irrestrita, em que o agente atua com mínima restrição; (II) colaboração conversacional iterativa, baseada no diálogo contínuo entre desenvolvedor e agente; (III) desenvolvimento orientado a planejamento, em que o trabalho parte de um plano previamente definido; (IV) desenvolvimento orientado a testes; e (V) desenvolvimento aprimorado por contexto, no qual se fornece ao agente informação estruturada sobre o projeto. Sendo assim, o êxito da prática não decorre apenas da capacidade do agente, mas sim, depende da engenharia de contexto, de ambientes de desenvolvimento consolidados e da colaboração entre humano e agente. Nesse cenário é proposto o termo \textbf{codificação agêntica}, que designa o uso de agentes sob práticas do XP: TDD, integração contínua a cada \textit{commit} e refatoração contínua o qual será utilizado para o desenvolvimento do projeto proposto discutido na Subseção~\ref{subsec:subagentes}.
 
 
-%----------------------------------------------------------------------------
 \subsection{Spec-Driven Development}
 \label{subsec:sdd}
 
 No desenvolvimento convencional, a especificação costuma orientar a escrita do código e é descartada depois, o desenvolvimento orientado por especificações (\textit{Spec-Driven Development}, SDD) inverte essa lógica \cite{github_speckit}. A especificação é escrita antes de o código ser gerado com IA e passa a ser a fonte de verdade tanto para o humano quanto para o modelo \cite{bockeler_sdd_2025}. Como o termo ainda não tem definição estável, \citeonline{bockeler_sdd_2025} distingue três níveis de adoção: \textit{spec-first}, em que a especificação é escrita antes e guia a tarefa em curso; \textit{spec-anchored}, em que é mantida após a entrega para apoiar a evolução da funcionalidade; e \textit{spec-as-source}, em que é o único artefato editado pelo humano e o código é gerado a partir dela.
 
-O \textit{Spec Kit}, kit aberto do GitHub, conduz o trabalho pelas etapas \textit{specify}, \textit{plan}, \textit{tasks} e \textit{implement}, com etapas opcionais de esclarecimento (\textit{clarify}) e análise \cite{github_speckit}. Os insumos do desenvolvimento são as histórias de usuário e os requisitos funcionais reunidos na especificação (\textit{feature specification}), artefato análogo ao documento de requisitos do produto, comparação que o próprio \citeonline{bockeler_sdd_2025} usa para caracterizar uma especificação. A etapa \textit{clarify} esclarece as lacunas dessa especificação por meio de perguntas ao engenheiro, antes do planejamento \cite{github_speckit}. O plano (\textit{plan}) reúne as decisões técnicas, como tabelas, bibliotecas e contratos de interface, e a lista de tarefas (\textit{tasks}) divide o trabalho em unidades pequenas e revisáveis. Como os artefatos de cada \textit{feature} seguem a mesma estrutura, a revisão fica mais simples e é possível rastrear histórias de usuário, requisitos (FUNC), tarefas e testes. A tabela de rastreabilidade é apresentada no capítulo de resultados.
+O \textit{Spec Kit}, kit de código aberto do GitHub, estrutura o desenvolvimento em quatro etapas principais, \textit{specify}, \textit{plan}, \textit{tasks} e \textit{implement}, com etapas opcionais de esclarecimento (\textit{clarify}) e análise \cite{github_speckit}. Os insumos do desenvolvimento são as histórias de usuário e os requisitos funcionais reunidos na especificação (\textit{feature specification}). A etapa \textit{clarify} esclarece as lacunas dessa especificação por meio de perguntas ao engenheiro, antes do planejamento \cite{github_speckit}. O plano (\textit{plan}) reúne as decisões técnicas, como tabelas, bibliotecas e contratos de interface, e a lista de tarefas (\textit{tasks}) divide o trabalho em unidades pequenas e revisáveis. Como os artefatos de cada \textit{feature} seguem uma estrutura padronizada, a revisão é facilitada e torna-se possível rastrear as histórias de usuário, os requisitos funcionais, as tarefas e os testes. A Tabela~\ref{tab:requisitosfunc} apresenta os requisitos funcionais do Seed que servem de insumo para o desenvolvimento orientado por especificação.
 
 
 \citeonline{bockeler_sdd_2025} observa que um fluxo único de SDD pode ser desproporcional para problemas pequenos e que a revisão de muitos arquivos \textit{markdown} é trabalhosa. A autora defende que o controle sobre o que se constrói vem de passos pequenos e iterativos, e não de uma especificação extensa elaborada de antemão. O projeto proposto atende a essa recomendação ao aplicar o fluxo em ciclos curtos, uma história de usuário por vez, de modo que o sistema se forma pela entrega sucessiva de histórias de escopo reduzido, em consonância com o Scrum e o Kanban adotados. Em cada ciclo, a etapa de esclarecimento define os critérios de aceitação e os limites numéricos das tarefas, valores que fundamentam os testes (Subseção~\ref{subsec:subagentes}).
@@ -181,10 +168,10 @@ A descrição de \texttt{tester} atribui-lhe a produção de testes unitários a
 
 O Código~\ref{cod:tester} apresenta o trecho que seleciona o modelo, as ferramentas e a habilidade. O conjunto declarado contém \texttt{Read}, \texttt{Write}, \texttt{Edit}, \texttt{Grep} e \texttt{Glob}; \texttt{Bash} está deliberadamente ausente, conforme o comentário do arquivo. A exclusão do interpretador de comandos é coerente com a intenção de limitar os meios de acesso disponíveis para essa função, segundo o princípio do privilégio mínimo de \citeonline{saltzer_schroeder_1975}.
 
-\begingroup
-\setminted{firstline=4,lastline=7}
-\codigoarq{autoria própria}{yaml}{editaveis/codigos/skills/tester.md}{Modelo, ferramentas e habilidade de tester}{cod:tester}
-\endgroup
+%\begingroup
+%\setminted{firstline=4,lastline=7}
+%\codigoarq{autoria própria}{yaml}{editaveis/codigos/skills/tester.md}{Modelo, ferramentas e habilidade de tester}{cod:tester}
+%\endgroup
 
 O mesmo arquivo associa o evento \texttt{PreToolUse} às cinco ferramentas por meio do padrão \texttt{Read|Grep|Glob|Write|Edit} e referencia o script \texttt{tester-allowlist.sh}. O nome do script, isoladamente, não comprova quais caminhos são autorizados. A política pretendida permite ler testes e especificações e escrever os testes, excluindo o código de produção. A opção por uma lista de permissões explícitas, ou \textit{allow-list}, decorre de permitir apenas recursos previamente identificados: uma lista de proibições, ou \textit{deny-list}, deixaria depender da enumeração de todas as localizações proibidas, e as buscas sem caminho varrem o repositório inteiro. Essa justificativa aplica o princípio de negação por padrão de \citeonline{saltzer_schroeder_1975}; a implementação concreta, incluindo o tratamento de caminhos e buscas, permanece [VERIFICAR].
 
@@ -194,10 +181,10 @@ A habilidade declarada é \texttt{unit-tests-boundary}. A documentação do Clau
 
 A descrição de \texttt{dev} estabelece que sua execução ocorre depois da revisão e do registro dos testes vermelhos em um \textit{commit}. Cabe-lhe implementar o mínimo necessário para satisfazê-los e, em seguida, refatorar. Propõe-se que receba a especificação, o planejamento, a tarefa e a referência do commit de testes, acompanhados do resultado da execução que caracterizou a fase vermelha. A habilidade \texttt{implement-and-refactor}, declarada no arquivo, é descrita nas anotações como orientada às camadas Controller, Service, Model e Repository. O Código~\ref{cod:dev} evidencia que, além das ferramentas de leitura, busca e edição, esse agente dispõe de \texttt{Bash}.
 
-\begingroup
-\setminted{firstline=4,lastline=7}
-\codigoarq{autoria própria}{yaml}{editaveis/codigos/skills/dev.md}{Modelo, ferramentas e habilidade de dev}{cod:dev}
-\endgroup
+%\begingroup
+%\setminted{firstline=4,lastline=7}
+%\codigoarq{autoria própria}{yaml}{editaveis/codigos/skills/dev.md}{Modelo, ferramentas e habilidade de dev}{cod:dev}
+%\endgroup
 
 No arquivo disponível, o hook \texttt{PreToolUse} de \texttt{dev} seleciona somente \texttt{Write|Edit} e referencia \texttt{dev-no-test-edit.sh}. A política pretendida é permitir alterações no código de produção e impedir alterações nos testes por essas ferramentas. Entretanto, os padrões da lista de proibições não puderam ser examinados [VERIFICAR]. Como \texttt{Bash} não integra esse seletor, a configuração apresentada não demonstra bloqueio de modificações de testes por comandos de terminal. A preocupação tem precedente: no agente de remediação de \citeonline{mathews_thesis_2025}, a instrução proíbe expressamente a modificação dos testes, o que indica que a alteração de testes é um desvio a ser evitado, embora o estudo não meça sua frequência. Caso um teste pareça contradizer a especificação, propõe-se interromper a implementação e devolver a divergência ao orquestrador, que consulta o engenheiro; o agente não deve ajustar o teste unilateralmente. A presença dessa regra na habilidade completa permanece [VERIFICAR].
 
@@ -231,7 +218,148 @@ A Tabela~\ref{tab:comparacao-subagentes} sintetiza a divisão proposta e os camp
     Hooks declarados & PreToolUse sobre as cinco ferramentas; referência a tester-allowlist.sh. & PreToolUse sobre Write e Edit; referência a dev-no-test-edit.sh. \\
     Verificação final & Não declarada na cópia examinada. & SubagentStop não declarado na cópia; configuração externa [VERIFICAR]. \\
     Habilidade declarada & \texttt{unit-tests-boundary}. & \texttt{implement-and-refactor}. \\
-    Modelo declarado & \texttt{sonnet}. & \texttt{sonnet}. \\
+    Modelo declarado & \texttt{sonnet}. & \textt%----------------------------------------------------------------------------
+\subsection{Ambiente de agentes}
+\label{subsec:ambiente}
+
+\subsubsection{Agentes e subagentes}
+\label{subsubsec:agentes}
+
+Para distinguir IA generativa convencional de agente, adota-se a definição da Anthropic, que classifica como sistemas agênticos tanto os \textit{workflows}, em que LLMs e ferramentas são orquestrados por caminhos de código predefinidos, quanto os agentes, em que o LLM dirige dinamicamente o próprio processo e o uso de ferramentas \cite{anthropic_agents}. A capacidade de ler e executar arquivos diretamente no computador, sem copiar e colar no contexto da conversa, decorre do uso de ferramentas, não é a definição em si. A mesma fonte recomenda a solução mais simples possível e observa que a autonomia dos agentes implica custos maiores e risco de acúmulo de erros. [VERIFICAR: confirmar essas ressalvas no texto original.] Por isso, o processo proposto mantém pontos de controle humanos, aproximando-se de um \textit{workflow} supervisionado.
+
+O ganho de acesso traz um problema de segurança: um agente com permissões amplas pode ler arquivos de variáveis de ambiente, acessar dados sensíveis ou sair do diretório do projeto. [VERIFICAR: substituir a referência a material de curso por documentação pública da Anthropic.] Como o Seed trata dados de saúde mental de estudantes, essa preocupação é central e motiva o isolamento descrito na Subseção~\ref{subsubsec:isolamento}.
+
+Neste trabalho, o orquestrador é a sessão principal do agente (Claude Code), que conduz o esclarecimento com o engenheiro e delega tarefas a subagentes. Subagentes possuem contexto próprio e são definidos em arquivos com \textit{frontmatter} YAML delimitado por \texttt{---}: \texttt{name} identifica o subagente; \texttt{description} orienta a delegação; \texttt{model} seleciona o modelo; \texttt{tools} enumera as ferramentas; \texttt{skills} indica habilidades pré-carregadas; e \texttt{hooks} associa verificações ao ciclo de execução \cite{anthropic_subagents}. O desenho não depende de subagentes que criem outros subagentes. [VERIFICAR: confirmar essa possibilidade na documentação.] O Seed define dois subagentes, \texttt{tester} e \texttt{dev}, detalhados na Subseção~\ref{subsec:subagentes}. As ferramentas e os formatos de definição de agentes variam entre fornecedores, e o Spec Kit é concebido para funcionar com vários agentes \cite{github_speckit}, o que reduz a dependência de uma única ferramenta nas especificações, embora não nos arquivos de agente. [VERIFICAR: confirmar a lista de agentes compatíveis.]
+
+% NOTA: o parágrafo sobre "problema energético de 2025" e os exemplos
+% "Empresa X/Y" foram removidos: a relação causal entre consumo de energia e o
+% surgimento dos agentes não tem fonte e não é sustentada pela literatura localizada.
+
+\subsubsection{Skills}
+\label{subsubsec:skills}
+
+Skills são pastas de instruções, descritas em arquivos \texttt{SKILL.md}, que o agente utiliza para tarefas específicas, como revisão de código, mensagens de \textit{commit} ou geração de testes \cite{anthropic_skills}. O agente consulta primeiro a descrição de cada skill e carrega o conteúdo completo apenas quando a tarefa corresponde a ela, o que evita ocupar o contexto com instruções desnecessárias. [VERIFICAR: confirmar esse carregamento progressivo na documentação.] Por isso, a descrição deve informar o que a skill faz e o que provoca seu uso. Skills de leitura e análise podem ter as ferramentas limitadas por meio do campo \texttt{allowed-tools}, reduzindo pedidos de permissão e o risco de alterações indevidas. Skills podem ainda ser associadas a subagentes por meio do campo \texttt{skills}, e a possibilidade de encadeá-las entre si deve ser verificada na documentação [VERIFICAR].
+
+A Tabela~\ref{tab:skills-propostas} lista as skills propostas para o Seed.
+
+\begingroup
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+    \centering
+    \caption{Skills propostas para o processo de desenvolvimento.}
+    \label{tab:skills-propostas}
+
+    \begin{tabularx}{\textwidth}{|l|l|X|l|}
+        \hline
+        \textbf{Skill} & \textbf{Usuário} & \textbf{Função} & \textbf{Situação} \\
+        \hline
+        \texttt{grill-me} (ou \textit{clarify}) & Orquestrador & Conduzir perguntas ao engenheiro até fechar critérios de aceitação, limites numéricos e decisões técnicas, sem que o agente decida por conta própria. & Conteúdo a descrever [VERIFICAR] \\
+        \hline
+        \texttt{unit-tests-boundary} & \texttt{tester} & Gerar testes unitários (JUnit~5 ou Jest) com partição de equivalência e valores de borda a partir da especificação. & Declarada \\
+        \hline
+        \texttt{implement-and-refactor} & \texttt{dev} & Implementar o mínimo para passar nos testes e refatorar com os testes verdes, seguindo as camadas Controller, Service, Model e Repository. & Declarada \\
+        \hline
+    \end{tabularx}
+
+    \vspace{0.5em}
+    \small Fonte: autoria própria.
+\end{table}
+\endgroup
+
+\subsubsection{Hooks}
+\label{subsubsec:hooks}
+
+Hooks são comandos definidos pelo usuário que o Claude Code executa em pontos fixos do ciclo de uso das ferramentas, sem depender de o modelo lembrar de uma instrução \cite{anthropic_hooks}. O evento \texttt{PreToolUse} ocorre antes da chamada de uma ferramenta e permite recusá-la, e \texttt{PostToolUse} ocorre depois que ela é concluída. Um \textit{hook} que termina com código de saída 2 bloqueia a ação, e o motivo retorna ao agente \cite{anthropic_hooks}. Existem ainda eventos como \texttt{Stop}, \texttt{SubagentStop}, \texttt{UserPromptSubmit} e \texttt{PreCompact}, e o conjunto muda entre versões. [VERIFICAR: conferir a lista atual na página oficial.] O critério de uso é objetivo: o que precisa ocorrer sempre é implementado como \textit{hook}, e não como pedido no \textit{prompt}, o que dialoga com a degradação de instruções em contextos longos discutida na Subseção~\ref{subsec:llm-limites}.
+
+Hooks não invocam skills nem comandos de conversa. Portanto, o esclarecimento de requisitos é iniciado pelo orquestrador, por solicitação do engenheiro ou por regra no arquivo \texttt{CLAUDE.md}, que reúne o onboarding do projeto para o agente. Os \textit{hooks} atuam como travas, e não como gatilhos. Um formatador, por exemplo, é executado depois que o agente edita um arquivo, e não antes de executar código.
+
+No Seed, os \textit{hooks} têm duas funções: limitar o acesso do agente a variáveis de ambiente e a conteúdo fora do diretório de código, e aplicar regras de formatação e limpeza a cada geração de código. A Tabela~\ref{tab:hooks-propostos} apresenta o conjunto proposto.
+
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{longtable}{|l|l|>{\raggedright\arraybackslash}p{0.42\textwidth}|>{\raggedright\arraybackslash}p{0.17\textwidth}|}
+    \caption{Hooks propostos para o processo de desenvolvimento.}\label{tab:hooks-propostos}\\
+    \hline
+    \textbf{Evento} & \textbf{Seletor} & \textbf{Função} & \textbf{Escopo} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Evento} & \textbf{Seletor} & \textbf{Função} & \textbf{Escopo} \\
+    \hline
+    \endhead
+    PostToolUse & \texttt{Edit|Write} & Formatar o arquivo alterado conforme a linguagem e devolver ao agente os erros de \textit{lint}. As ferramentas serão definidas [VERIFICAR]. & Global \\
+    \hline
+    PreToolUse & \texttt{Read|Edit|Write|Bash} & Bloquear acesso a arquivos de variáveis de ambiente, chaves e credenciais, como segunda camada após o isolamento do contêiner. & Global \\
+    \hline
+    PreToolUse & \texttt{Bash} & Bloquear comandos destrutivos, como remoção recursiva, \textit{push} forçado, \textit{reset} rígido e \texttt{DROP}. & Global \\
+    \hline
+    PreToolUse & \texttt{Read|Grep|Glob|Write|Edit} & Lista de permissões (\textit{allow-list}): o \texttt{tester} só acessa testes e especificações. & \texttt{tester} \\
+    \hline
+    PreToolUse & \texttt{Write|Edit} & Lista de proibições (\textit{deny-list}): o \texttt{dev} não altera arquivos de teste. & \texttt{dev} \\
+    \hline
+    SubagentStop & --- & Comparar os testes com o \textit{commit} da fase vermelha, executar a suíte e recusar o encerramento se algum teste foi alterado ou a suíte estiver vermelha. A implementação permanece [VERIFICAR]. & Global (\texttt{settings.json}) \\
+    \hline
+    PostToolUse & \texttt{*} & Registrar ferramenta, caminho e horário, sem o conteúdo, que pode conter dados pessoais, para auditoria do processo. & Global \\
+    \hline
+    PreToolUse (hipótese) & Chamada de subagente & Impedir o \texttt{tester} antes de a especificação ser esclarecida e o \texttt{dev} antes do \textit{commit} dos testes vermelhos. Hipótese de projeto, sem fonte; o nome da ferramenta que invoca subagentes deve ser conferido [VERIFICAR]. & Global \\
+    \hline
+    PreCompact (opcional) & --- & Salvar o estado da tarefa antes da compactação do contexto. & Global \\
+    \hline
+    \multicolumn{4}{p{0.95\textwidth}}{Fonte: autoria própria, com base em \citeonline{anthropic_hooks}.}\\
+\end{longtable}
+\endgroup
+
+\subsubsection{Por que o Seed não utiliza MCP}
+\label{subsubsec:mcp}
+
+O \textit{Model Context Protocol} (MCP) conecta agentes a ferramentas e fontes de dados externas. O Seed não o adota por três razões de projeto: o desenvolvimento depende apenas das ferramentas nativas de leitura, busca, edição e execução e das skills descritas acima; cada servidor conectado amplia a superfície de acesso do agente, contrariando o princípio do privilégio mínimo \cite{saltzer_schroeder_1975}; e as descrições das ferramentas de cada servidor ocupam espaço no contexto [VERIFICAR: confirmar esse custo na documentação]. Essas razões são de desenho, não resultado de avaliação empírica.
+
+% NOTA: a justificativa original mencionava o servidor "igris", que pertence a
+% outro projeto (geração de currículo) e não deve aparecer na monografia.
+
+\subsubsection{Isolamento do agente}
+\label{subsubsec:isolamento}
+
+O princípio do privilégio mínimo estabelece que cada componente deve acessar apenas o necessário para funcionar \cite{saltzer_schroeder_1975}. Para o agente, a camada principal é a execução em um contêiner ou ambiente isolado, sem acesso a variáveis sensíveis do sistema nem a diretórios fora do projeto. A documentação do Docker descreve, por exemplo, ambientes isolados em microVMs para agentes de código \cite{docker_sandboxes}. [VERIFICAR: citar a solução de isolamento de Akita, com repositório, e escolher a ferramenta efetivamente usada.] Os \textit{hooks} complementam esse isolamento, sem substituí-lo. Essa composição configura defesa em profundidade e integra os cuidados com os dados pessoais tratados pelo Seed no contexto da LGPD \cite{brasil2018lgpd}, sem constituir comprovação de conformidade legal. [VERIFICAR: conferir os artigos sobre dados pessoais sensíveis de saúde.]
+
+%----------------------------------------------------------------------------
+\subsection{Fluxo proposto}
+\label{subsec:fluxo-ia}
+
+O fluxo de cada feature compreende as etapas a seguir, ilustradas na Figura~\ref{fig:bpmn-ia}. Primeiro, o engenheiro descreve a feature e o orquestrador conduz o esclarecimento até fechar os critérios de aceitação e os limites numéricos. Em seguida, são geradas e revisadas a especificação, o planejamento e as tarefas. O \texttt{tester} produz os testes a partir da especificação, que são revisados, executados e registrados em um \textit{commit} na fase vermelha. O \texttt{dev} implementa a fase verde e refatora, mantendo os testes verdes. Por fim, a integração contínua e as ferramentas de segurança verificam o resultado, e o orquestrador reporta ao engenheiro.
+
+% NOTA: incluir a figura (BPMN com raias Engenheiro, Orquestrador, tester, dev,
+% hooks e ferramentas de segurança). Descomentar quando o arquivo existir.
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{editaveis/figuras/bpmn_ia.png}
+%     \caption{BPMN do fluxo de desenvolvimento orientado por IA.}
+%     \label{fig:bpmn-ia}
+%     \par\small Fonte: autoria própria.
+% \end{figure}
+
+A verificação de segurança combina técnicas complementares: a análise estática (SAST) examina o código-fonte sem executá-lo; a análise dinâmica (DAST) testa a aplicação em execução; e a análise interativa (IAST) instrumenta a aplicação durante a execução para observar vulnerabilidades. [VERIFICAR: citar OWASP e o NIST SP 800-218 (SSDF) para essas definições e para a escolha das ferramentas.] A inclusão dessa etapa decorre das evidências de que código gerado por IA pode conter vulnerabilidades e de que o uso de assistentes aumenta a confiança indevida do desenvolvedor \cite{pearce_2021,perry_2022}. Um \textit{commit} que introduza vulnerabilidade crítica retorna à implementação.
+
+%----------------------------------------------------------------------------
+\subsection{Subagentes de teste e implementação}
+\label{subsec:subagentes}
+
+A divisão em dois subagentes busca a independência entre quem define o comportamento esperado e quem escreve o código. Seu fundamento é a observação de \citeonline{mathews_thesis_2025} e \citeonline{mathews_design_2024} de que ferramentas de geração de testes que inferem requisitos a partir do código tendem a validar defeitos. No estudo, as ferramentas avaliadas descartavam testes que falhavam no código com bugs e mantinham os que passavam, e em até 68,1\% das suítes finais de uma das ferramentas os testes passavam no código incorreto e falhavam no correto. Os autores defendem que o código seja escrito a partir de requisitos expressos como testes, de acordo com o TDD. Em um estudo preliminar com funções simples em Python, \citeonline{genc_2025} obtiveram testes executáveis e com cobertura total usando o código da função como entrada, mas o escopo era restrito a três funções e os autores reconhecem limitações com dependências entre componentes. Diferentemente dessas abordagens, o \texttt{tester} do Seed parte da especificação.
+
+\subsubsection{Responsabilidades do subagente tester}
+
+A descrição de \texttt{tester} atribui-lhe a produção de testes unitários a partir da especificação e dos critérios de aceitação de uma tarefa, após o esclarecimento de requisitos, denominado \textit{clarify}, e antes da implementação. Para operacionalizar essa atribuição, propõe-se que o orquestrador forneça a especificação da tarefa, os critérios de aceitação, os limites numéricos esclarecidos pelo engenheiro e o contrato de interfaces definido no planejamento, denominado \textit{plan}. Os limites devem vir do esclarecimento, e não ser inventados pelo modelo, pois bordas plausíveis nem sempre são as do domínio do Seed. A saída prevista consiste nos arquivos de teste e em uma síntese de sua localização e das pendências, sem reproduzir integralmente o código na conversa. A regra de devolver ambiguidades ao orquestrador, sem decidir requisitos, integra o protocolo proposto; sua presença nas instruções completas do agente permanece [VERIFICAR].
+
+O Código~\ref{cod:tester} apresenta o trecho que seleciona o modelo, as ferramentas e a habilidade. O conjunto declarado contém \texttt{Read}, \texttt{Write}, \texttt{Edit}, \texttt{Grep} e \texttt{Glob}; \texttt{Bash} está deliberadamente ausente, conforme o comentário do arquivo. A exclusão do interpretador de comandos é coerente com a intenção de limitar os meios de acesso disponíveis para essa função, segundo o princípio do privilégio mínimo de \citeonline{saltzer_schroeder_1975}.
+
+%\begingroup
+%\setminted{firstline=4,lastline=7}
+%\codigoarq{autoria própria}{yaml}{editaveis/codigos/skills/tester.md}{Modelo, ferramentas e habilidade de tester}{cod:tester}
+%\endgroup
+
+O mesmo arquivo associa o evento \texttt{PreToolUse} às cinco ferramentas por meio do padrão \texttt{Read|Grep|Glob|Write|Edit} e referencia o script \texttt{tester-allowlist.sh}. O nome do script, isoladamente, não comprova quais caminhos são autorizados. A política pretendida permite ler testes e especificações e escrever os testes, excluindo o código de produção. A opção por uma lista de permissões explícitas, ou \textit{allow-list}, decorre de permitir apenas recursos previamente identificados: uma lista de proibições, ou \textit{deny-list}, deixaria depender da enumeração de todas as localizações proibidas, e as buscas sem caminho varrem o repositório inteiro. Essa justificativa aplica o princípio de negação por padrão de \citeonline{saltzer_schroeder_1975}; a implementação concreta, incluindo o tratamento de caminhos e buscas, permanece [VERIFICAR].
+t{sonnet}. \\
     \hline
     \multicolumn{3}{p{0.94\textwidth}}{Fonte: autoria própria, com base nos arquivos reproduzidos no Apêndice~\ref{apendice:agentes-ia} e no protocolo proposto nesta subseção.}\\
 \end{longtable}

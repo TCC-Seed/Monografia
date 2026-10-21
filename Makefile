@@ -1,7 +1,7 @@
 MAIN  = main
 BUILD = build
 
-LATEX     = pdflatex -interaction=nonstopmode -halt-on-error -output-directory=$(BUILD)
+LATEX     = pdflatex -shell-escape -interaction=nonstopmode -halt-on-error -output-directory=$(BUILD)
 BIBTEX    = bibtex
 MAKEINDEX = makeindex
 
