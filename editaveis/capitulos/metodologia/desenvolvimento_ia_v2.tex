@@ -34,95 +34,89 @@ O \textit{Spec Kit}, kit de código aberto do GitHub, estrutura o desenvolviment
 \citeonline{bockeler_sdd_2025} observa que um fluxo único de SDD pode ser desproporcional para problemas pequenos e que a revisão de muitos arquivos \textit{markdown} é trabalhosa. A autora defende que o controle sobre o que se constrói vem de passos pequenos e iterativos, e não de uma especificação extensa elaborada de antemão. O projeto proposto atende a essa recomendação ao aplicar o fluxo em ciclos curtos, uma história de usuário por vez, de modo que o sistema se forma pela entrega sucessiva de histórias de escopo reduzido, em consonância com o Scrum e o Kanban adotados. Em cada ciclo, a etapa de esclarecimento define os critérios de aceitação e os limites numéricos das tarefas, valores que fundamentam os testes (Subseção~\ref{subsec:subagentes}).
 %
 %%----------------------------------------------------------------------------
-%\subsection{Ambiente de agentes}
-%\label{subsec:ambiente}
-%
-%\subsubsection{Agentes e subagentes}
-%\label{subsubsec:agentes}
-%
+\subsection{Ambiente de agentes}
+\label{subsec:ambiente}
+
+\subsubsection{Agentes e subagentes}
+\label{subsubsec:agentes}
+
 %Para distinguir IA generativa convencional de agente, adota-se a definição da Anthropic, que classifica como sistemas agênticos tanto os \textit{workflows}, em que LLMs e ferramentas são orquestrados por caminhos de código predefinidos, quanto os agentes, em que o LLM dirige dinamicamente o próprio processo e o uso de ferramentas \cite{anthropic_agents}. A capacidade de ler e executar arquivos diretamente no computador, sem copiar e colar no contexto da conversa, decorre do uso de ferramentas, não é a definição em si. A mesma fonte recomenda a solução mais simples possível e observa que a autonomia dos agentes implica custos maiores e risco de acúmulo de erros. [VERIFICAR: confirmar essas ressalvas no texto original.] Por isso, o processo proposto mantém pontos de controle humanos, aproximando-se de um \textit{workflow} supervisionado.
 %
 %O ganho de acesso traz um problema de segurança: um agente com permissões amplas pode ler arquivos de variáveis de ambiente, acessar dados sensíveis ou sair do diretório do projeto. [VERIFICAR: substituir a referência a material de curso por documentação pública da Anthropic.] Como o Seed trata dados de saúde mental de estudantes, essa preocupação é central e motiva o isolamento descrito na Subseção~\ref{subsubsec:isolamento}.
 %
 %Neste trabalho, o orquestrador é a sessão principal do agente (Claude Code), que conduz o esclarecimento com o engenheiro e delega tarefas a subagentes. Subagentes possuem contexto próprio e são definidos em arquivos com \textit{frontmatter} YAML delimitado por \texttt{---}: \texttt{name} identifica o subagente; \texttt{description} orienta a delegação; \texttt{model} seleciona o modelo; \texttt{tools} enumera as ferramentas; \texttt{skills} indica habilidades pré-carregadas; e \texttt{hooks} associa verificações ao ciclo de execução \cite{anthropic_subagents}. O desenho não depende de subagentes que criem outros subagentes. [VERIFICAR: confirmar essa possibilidade na documentação.] O Seed define dois subagentes, \texttt{tester} e \texttt{dev}, detalhados na Subseção~\ref{subsec:subagentes}. As ferramentas e os formatos de definição de agentes variam entre fornecedores, e o Spec Kit é concebido para funcionar com vários agentes \cite{github_speckit}, o que reduz a dependência de uma única ferramenta nas especificações, embora não nos arquivos de agente. [VERIFICAR: confirmar a lista de agentes compatíveis.]
-%
-%% NOTA: o parágrafo sobre "problema energético de 2025" e os exemplos
-%% "Empresa X/Y" foram removidos: a relação causal entre consumo de energia e o
-%% surgimento dos agentes não tem fonte e não é sustentada pela literatura localizada.
-%
-%\subsubsection{Skills}
-%\label{subsubsec:skills}
-%
+
+\subsubsection{Skills}
+\label{subsubsec:skills}
+
 %Skills são pastas de instruções, descritas em arquivos \texttt{SKILL.md}, que o agente utiliza para tarefas específicas, como revisão de código, mensagens de \textit{commit} ou geração de testes \cite{anthropic_skills}. O agente consulta primeiro a descrição de cada skill e carrega o conteúdo completo apenas quando a tarefa corresponde a ela, o que evita ocupar o contexto com instruções desnecessárias. [VERIFICAR: confirmar esse carregamento progressivo na documentação.] Por isso, a descrição deve informar o que a skill faz e o que provoca seu uso. Skills de leitura e análise podem ter as ferramentas limitadas por meio do campo \texttt{allowed-tools}, reduzindo pedidos de permissão e o risco de alterações indevidas. Skills podem ainda ser associadas a subagentes por meio do campo \texttt{skills}, e a possibilidade de encadeá-las entre si deve ser verificada na documentação [VERIFICAR].
-%
-%A Tabela~\ref{tab:skills-propostas} lista as skills propostas para o Seed.
-%
-%\begingroup
-%\renewcommand{\arraystretch}{1.5}
-%\begin{table}[H]
-%    \centering
-%    \caption{Skills propostas para o processo de desenvolvimento.}
-%    \label{tab:skills-propostas}
-%
-%    \begin{tabularx}{\textwidth}{|l|l|X|l|}
-%        \hline
-%        \textbf{Skill} & \textbf{Usuário} & \textbf{Função} & \textbf{Situação} \\
-%        \hline
-%        \texttt{grill-me} (ou \textit{clarify}) & Orquestrador & Conduzir perguntas ao engenheiro até fechar critérios de aceitação, limites numéricos e decisões técnicas, sem que o agente decida por conta própria. & Conteúdo a descrever [VERIFICAR] \\
-%        \hline
-%        \texttt{unit-tests-boundary} & \texttt{tester} & Gerar testes unitários (JUnit~5 ou Jest) com partição de equivalência e valores de borda a partir da especificação. & Declarada \\
-%        \hline
-%        \texttt{implement-and-refactor} & \texttt{dev} & Implementar o mínimo para passar nos testes e refatorar com os testes verdes, seguindo as camadas Controller, Service, Model e Repository. & Declarada \\
-%        \hline
-%    \end{tabularx}
-%
-%    \vspace{0.5em}
-%    \small Fonte: autoria própria.
-%\end{table}
-%\endgroup
-%
-%\subsubsection{Hooks}
-%\label{subsubsec:hooks}
+
+A Tabela~\ref{tab:skills-propostas} lista as skills propostas para o Seed.
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+    \centering
+    \caption{Skills propostas para o processo de desenvolvimento.}
+    \label{tab:skills-propostas}
+    \small
+
+    \begin{tabularx}{\textwidth}{|>{\hsize=0.95\hsize\raggedright\arraybackslash}X|>{\hsize=0.6\hsize\raggedright\arraybackslash}X|>{\hsize=1.45\hsize\raggedright\arraybackslash}X|}
+        \hline
+        \textbf{Skill} & \textbf{Usuário} & \textbf{Função} \\
+        \hline
+        \texttt{grill-\allowbreak me} & Orquestrador & Conduzir perguntas ao engenheiro até fechar critérios de aceitação, limites numéricos e decisões técnicas, sem que o agente decida por conta própria. \\
+        \hline
+        \texttt{unit-\allowbreak tests-\allowbreak boundary} & \texttt{Tester} & Gerar testes unitários (JUnit~5 ou Jest) com partição de equivalência e valores de borda a partir da especificação. \\
+        \hline
+        \texttt{implement-\allowbreak and-\allowbreak refactor} & \texttt{Dev} & Implementar o mínimo para passar nos testes e refatorar com os testes verdes, seguindo as camadas Controller, Service, Model e Repository. \\
+        \hline
+    \end{tabularx}
+
+    \vspace{0.5em}
+    \small Fonte: autoria própria.
+\end{table}
+
+
+\subsubsection{Hooks}
+\label{subsubsec:hooks}
 %
 %Hooks são comandos definidos pelo usuário que o Claude Code executa em pontos fixos do ciclo de uso das ferramentas, sem depender de o modelo lembrar de uma instrução \cite{anthropic_hooks}. O evento \texttt{PreToolUse} ocorre antes da chamada de uma ferramenta e permite recusá-la, e \texttt{PostToolUse} ocorre depois que ela é concluída. Um \textit{hook} que termina com código de saída 2 bloqueia a ação, e o motivo retorna ao agente \cite{anthropic_hooks}. Existem ainda eventos como \texttt{Stop}, \texttt{SubagentStop}, \texttt{UserPromptSubmit} e \texttt{PreCompact}, e o conjunto muda entre versões. [VERIFICAR: conferir a lista atual na página oficial.] O critério de uso é objetivo: o que precisa ocorrer sempre é implementado como \textit{hook}, e não como pedido no \textit{prompt}, o que dialoga com a degradação de instruções em contextos longos discutida na Subseção~\ref{subsec:llm-limites}.
 %
 %Hooks não invocam skills nem comandos de conversa. Portanto, o esclarecimento de requisitos é iniciado pelo orquestrador, por solicitação do engenheiro ou por regra no arquivo \texttt{CLAUDE.md}, que reúne o onboarding do projeto para o agente. Os \textit{hooks} atuam como travas, e não como gatilhos. Um formatador, por exemplo, é executado depois que o agente edita um arquivo, e não antes de executar código.
 %
-%No Seed, os \textit{hooks} têm duas funções: limitar o acesso do agente a variáveis de ambiente e a conteúdo fora do diretório de código, e aplicar regras de formatação e limpeza a cada geração de código. A Tabela~\ref{tab:hooks-propostos} apresenta o conjunto proposto.
-%
-%\begingroup
-%\small
-%\renewcommand{\arraystretch}{1.4}
-%\begin{longtable}{|l|l|>{\raggedright\arraybackslash}p{0.42\textwidth}|>{\raggedright\arraybackslash}p{0.17\textwidth}|}
-%    \caption{Hooks propostos para o processo de desenvolvimento.}\label{tab:hooks-propostos}\\
-%    \hline
-%    \textbf{Evento} & \textbf{Seletor} & \textbf{Função} & \textbf{Escopo} \\
-%    \hline
-%    \endfirsthead
-%    \hline
-%    \textbf{Evento} & \textbf{Seletor} & \textbf{Função} & \textbf{Escopo} \\
-%    \hline
-%    \endhead
-%    PostToolUse & \texttt{Edit|Write} & Formatar o arquivo alterado conforme a linguagem e devolver ao agente os erros de \textit{lint}. As ferramentas serão definidas [VERIFICAR]. & Global \\
-%    \hline
-%    PreToolUse & \texttt{Read|Edit|Write|Bash} & Bloquear acesso a arquivos de variáveis de ambiente, chaves e credenciais, como segunda camada após o isolamento do contêiner. & Global \\
-%    \hline
-%    PreToolUse & \texttt{Bash} & Bloquear comandos destrutivos, como remoção recursiva, \textit{push} forçado, \textit{reset} rígido e \texttt{DROP}. & Global \\
-%    \hline
-%    PreToolUse & \texttt{Read|Grep|Glob|Write|Edit} & Lista de permissões (\textit{allow-list}): o \texttt{tester} só acessa testes e especificações. & \texttt{tester} \\
-%    \hline
-%    PreToolUse & \texttt{Write|Edit} & Lista de proibições (\textit{deny-list}): o \texttt{dev} não altera arquivos de teste. & \texttt{dev} \\
-%    \hline
-%    SubagentStop & --- & Comparar os testes com o \textit{commit} da fase vermelha, executar a suíte e recusar o encerramento se algum teste foi alterado ou a suíte estiver vermelha. A implementação permanece [VERIFICAR]. & Global (\texttt{settings.json}) \\
-%    \hline
-%    PostToolUse & \texttt{*} & Registrar ferramenta, caminho e horário, sem o conteúdo, que pode conter dados pessoais, para auditoria do processo. & Global \\
-%    \hline
-%    PreToolUse (hipótese) & Chamada de subagente & Impedir o \texttt{tester} antes de a especificação ser esclarecida e o \texttt{dev} antes do \textit{commit} dos testes vermelhos. Hipótese de projeto, sem fonte; o nome da ferramenta que invoca subagentes deve ser conferido [VERIFICAR]. & Global \\
-%    \hline
-%    PreCompact (opcional) & --- & Salvar o estado da tarefa antes da compactação do contexto. & Global \\
-%    \hline
-%    \multicolumn{4}{p{0.95\textwidth}}{Fonte: autoria própria, com base em \citeonline{anthropic_hooks}.}\\
-%\end{longtable}
+
+No Seed, os \textit{hooks} impedem que o agente acesse variáveis de ambiente e arquivos fora do diretório de código, mantêm o código gerado organizado por meio da formatação automática a cada alteração e registram as ações do agente para fins de auditoria do processo. A Tabela~\ref{tab:hooks-propostos} apresenta o conjunto proposto.
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+    \centering
+    \caption{Hooks propostos para o processo de desenvolvimento.}
+    \label{tab:hooks-propostos}
+    \small
+
+    \begin{tabularx}{\textwidth}{|>{\hsize=0.8\hsize\raggedright\arraybackslash}X|>{\hsize=0.9\hsize\raggedright\arraybackslash}X|>{\hsize=1.6\hsize\raggedright\arraybackslash}X|>{\hsize=0.7\hsize\raggedright\arraybackslash}X|}
+        \hline
+        \textbf{Evento} & \textbf{Seletor} & \textbf{Função} & \textbf{Escopo} \\
+        \hline
+        PostToolUse & \texttt{Edit|\allowbreak Write} & Executar \textit{linter} e formatador automaticamente no arquivo alterado, ajustando o código após a geração. & Global \\
+        \hline
+        PreToolUse & \texttt{Read|\allowbreak Edit|\allowbreak Write|\allowbreak Bash} & Bloquear acesso a arquivos de variáveis de ambiente, de chaves e de credenciais, como segunda camada após o isolamento do contêiner. & Global \\
+        \hline
+        PreToolUse & \texttt{Bash} & Bloquear comandos destrutivos, como remoção recursiva, \textit{push} forçado, \textit{reset} rígido e \texttt{DROP}. & Global \\
+        \hline
+        PreToolUse & \texttt{Read|\allowbreak Grep|\allowbreak Glob|\allowbreak Write|\allowbreak Edit} & Aplicar lista de permissões (\textit{allow-list}) para que o \texttt{Tester} acesse apenas testes e especificações. & \texttt{Tester} \\
+        \hline
+        PreToolUse & \texttt{Write|\allowbreak Edit} & Aplicar lista de proibições (\textit{deny-list}) para que o \texttt{Dev} não altere arquivos de teste. & \texttt{Dev} \\
+        \hline
+        PostToolUse & \texttt{*} & Registrar ferramenta, caminho e horário de cada ação, sem registrar o conteúdo dos arquivos, para fins de auditoria do processo. & Global \\
+        \hline
+    \end{tabularx}
+
+    \vspace{0.5em}
+    \small Fonte: autoria própria, com base em \citeonline{anthropic_academy}.
+\end{table}
+
+
 %\endgroup
 %
 %\subsubsection{Por que o Seed não utiliza MCP}
