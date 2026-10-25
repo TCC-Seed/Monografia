@@ -116,21 +116,6 @@ No Seed, os \textit{hooks} impedem que o agente acesse variáveis de ambiente e 
     \small Fonte: autoria própria, com base em \citeonline{anthropic_academy}.
 \end{table}
 
-
-%\endgroup
-%
-%\subsubsection{Por que o Seed não utiliza MCP}
-%\label{subsubsec:mcp}
-%
-%O \textit{Model Context Protocol} (MCP) conecta agentes a ferramentas e fontes de dados externas. O Seed não o adota por três razões de projeto: o desenvolvimento depende apenas das ferramentas nativas de leitura, busca, edição e execução e das skills descritas acima; cada servidor conectado amplia a superfície de acesso do agente, contrariando o princípio do privilégio mínimo \cite{saltzer_schroeder_1975}; e as descrições das ferramentas de cada servidor ocupam espaço no contexto [VERIFICAR: confirmar esse custo na documentação]. Essas razões são de desenho, não resultado de avaliação empírica.
-%
-%% NOTA: a justificativa original mencionava o servidor "igris", que pertence a
-%% outro projeto (geração de currículo) e não deve aparecer na monografia.
-%
-%\subsubsection{Isolamento do agente}
-%\label{subsubsec:isolamento}
-%
-%O princípio do privilégio mínimo estabelece que cada componente deve acessar apenas o necessário para funcionar \cite{saltzer_schroeder_1975}. Para o agente, a camada principal é a execução em um contêiner ou ambiente isolado, sem acesso a variáveis sensíveis do sistema nem a diretórios fora do projeto. A documentação do Docker descreve, por exemplo, ambientes isolados em microVMs para agentes de código \cite{docker_sandboxes}. [VERIFICAR: citar a solução de isolamento de Akita, com repositório, e escolher a ferramenta efetivamente usada.] Os \textit{hooks} complementam esse isolamento, sem substituí-lo. Essa composição configura defesa em profundidade e integra os cuidados com os dados pessoais tratados pelo Seed no contexto da LGPD \cite{brasil2018lgpd}, sem constituir comprovação de conformidade legal. [VERIFICAR: conferir os artigos sobre dados pessoais sensíveis de saúde.]
 %
 %%----------------------------------------------------------------------------
 %\subsection{Fluxo proposto}

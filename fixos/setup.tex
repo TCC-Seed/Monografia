@@ -18,3 +18,22 @@
 \setlength{\parindent}{1.3cm}
 \setlength{\parskip}{0.2cm}  
 \makeindex
+
+
+% Prefixo do cabeçalho: "Capítulo" no corpo, "APÊNDICE" nos apêndices
+\makeatletter
+\providecommand{\headerchapname}{\chaptername}
+\def\headerchapname{\chaptername}
+\AtBeginEnvironment{apendicesenv}{\def\headerchapname{\MakeUppercase{\apendicename}}}
+\makeatother
+
+% Cabeçalho: "Capítulo N. Título" / "APÊNDICE A. Título", igual em todas as páginas
+\makepsmarks{abntheadings}{%
+	\def\chaptermark##1{\markboth{\headerchapname\ \thechapter.\ ##1}{}}%
+	\def\sectionmark##1{}%
+	\def\subsectionmark##1{}%
+}
+\makeevenhead{abntheadings}
+{\ABNTEXfontereduzida\textit\leftmark}{}{\ABNTEXfontereduzida\thepage}
+\makeoddhead{abntheadings}
+{\ABNTEXfontereduzida\textit\leftmark}{}{\ABNTEXfontereduzida\thepage}
