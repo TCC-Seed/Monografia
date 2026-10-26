@@ -1,0 +1,36 @@
+Os ambientes de desenvolvimento, validação e produção foram escolhidos com o objetivo de manter o produto com baixo custo. Para isso, aproveitou-se o \textit{GitHub Student Pack}, benefício disponível aos estudantes da Universidade de Brasília. Por meio dele, foi possível utilizar gratuitamente os seguintes serviços:
+
+\begin{itemize}
+    \item \textbf{Heroku:} hospedagem do banco de dados e do \textit{backend};
+    \item \textbf{Vercel:} hospedagem do \textit{frontend};
+    \item \textbf{Name.com:} registro do domínio.
+\end{itemize}
+
+Os códigos-fonte foram versionados utilizando o GitHub e organizados em repositórios distintos para o \textit{backend}, o \textit{frontend} e a monografia, o que facilita a manutenção e a evolução independente de cada parte do projeto. A organização está disponível em: \url{https://github.com/TCC-Seed}.
+
+A Tabela~\ref{tab:repositorios} apresenta os repositórios, os endereços de \textit{deploy} para cada serviço.
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+    \centering
+    \caption{Repositórios e \textit{Deploy} do Software.}
+    \label{tab:repositorios}
+
+    \begin{tabularx}{\textwidth}{|l|X|X|}
+        \hline
+        \textbf{Serviço} & \textbf{Repositório} & \textbf{\textit{Deploy}} \\
+        \hline
+        \textit{Frontend} & \footnotesize\url{https://github.com/TCC-Seed/Front} & \footnotesize\url{https://www.seeds.software/} \\
+        \hline
+        \textit{Backend} & \footnotesize\url{https://github.com/TCC-Seed/Service} & \footnotesize\url{https://www.api.seeds.software/} \\
+        \hline
+    \end{tabularx}
+
+    \vspace{0.5em}
+    \small Fonte: autoria própria.
+\end{table}
+
+O endereço do banco de dados não é divulgado publicamente, o que reduz o risco de sobrecarga e de acessos indevidos. A OWASP recomenda que o banco de dados de uma aplicação seja isolado dos demais servidores e aceite conexões do menor número possível de \textit{hosts}, seja por regras de \textit{firewall} na porta de rede, seja por um segmento de rede interno \cite{owasp-database}. Seguindo essa orientação, o banco foi configurado com uma lista de endereços IP autorizados (\textit{whitelist}) que contém apenas o endereço do \textit{backend}. Assim, nenhuma outra origem consegue consultar o banco diretamente.
+
+O projeto também usa o DNS da \textit{Cloudflare} com os registros em modo \textit{proxied}. Com isso, toda requisição passa primeiro pela \textit{Cloudflare} antes de chegar ao servidor de origem, o que permite mitigar ataques de negação de serviço (DDoS) de forma automática \cite{cloudflare-ddos}. A comunicação é protegida por TLS, tanto entre o cliente e a \textit{Cloudflare} quanto entre a \textit{Cloudflare} e o servidor de origem. No modo \textit{Full (strict)}, o certificado do servidor de origem também é validado \cite{cloudflare_full_strict}.
+
