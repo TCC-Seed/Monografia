@@ -79,42 +79,54 @@ A Tabela~\ref{tab:skills-propostas} lista as skills propostas para o Seed.
 
 \subsubsection{Hooks}
 \label{subsubsec:hooks}
-%
-%Hooks são comandos definidos pelo usuário que o Claude Code executa em pontos fixos do ciclo de uso das ferramentas, sem depender de o modelo lembrar de uma instrução \cite{anthropic_hooks}. O evento \texttt{PreToolUse} ocorre antes da chamada de uma ferramenta e permite recusá-la, e \texttt{PostToolUse} ocorre depois que ela é concluída. Um \textit{hook} que termina com código de saída 2 bloqueia a ação, e o motivo retorna ao agente \cite{anthropic_hooks}. Existem ainda eventos como \texttt{Stop}, \texttt{SubagentStop}, \texttt{UserPromptSubmit} e \texttt{PreCompact}, e o conjunto muda entre versões. [VERIFICAR: conferir a lista atual na página oficial.] O critério de uso é objetivo: o que precisa ocorrer sempre é implementado como \textit{hook}, e não como pedido no \textit{prompt}, o que dialoga com a degradação de instruções em contextos longos discutida na Subseção~\ref{subsec:llm-limites}.
-%
-%Hooks não invocam skills nem comandos de conversa. Portanto, o esclarecimento de requisitos é iniciado pelo orquestrador, por solicitação do engenheiro ou por regra no arquivo \texttt{CLAUDE.md}, que reúne o onboarding do projeto para o agente. Os \textit{hooks} atuam como travas, e não como gatilhos. Um formatador, por exemplo, é executado depois que o agente edita um arquivo, e não antes de executar código.
-%
 
-No Seed, os \textit{hooks} impedem que o agente acesse variáveis de ambiente e arquivos fora do diretório de código, mantêm o código gerado organizado por meio da formatação automática a cada alteração e registram as ações do agente para fins de auditoria do processo. A Tabela~\ref{tab:hooks-propostos} apresenta o conjunto proposto.
+Como o modelo de linguagem é um instrumento probabilístico, mesmo uma ordem explícita no \textit{prompt} ou em uma \textit{skill} pode não ser seguida, conforme discutido na Subseção~\ref{subsec:llm-limites}. Os \textit{hooks} mitigam esse risco ao transferir a garantia para \textit{scripts} de execução determinística, de modo que o que precisa ocorrer sempre é implementado como \textit{hook}, e não como pedido no \textit{prompt} \cite{anthropic_academy}.
+
+Sendo assim, cada \textit{hook} é vinculado a um evento específico do ciclo de vida e a um seletor (\textit{matcher}), responsável por filtrar as ferramentas aplicáveis. Neste trabalho, utilizam-se os seguintes eventos de disparo:
+
+\begin{itemize}[label=-]
+    \item \textbf{\texttt{PreToolUse}:} executado antes da chamada de uma ferramenta, permitindo a intercepção e recusa da operação;
+    \item \textbf{\texttt{PostToolUse}:} acionado imediatamente após a conclusão da ferramenta;
+    \item \textbf{Eventos de \textit{bash}:} acionados durante a invocação do agente.
+\end{itemize}
+
+Além disso, no ambiente de desenvolvimento, os \textit{hooks} desempenham três funções fundamentais:
+
+\begin{enumerate}
+    \item \textbf{Segurança:} impedem a execução de comandos destrutivos e a exposição de dados sensíveis;
+    \item \textbf{Qualidade:} executam a formatação e a análise estática do código Java a cada alteração;
+    \item \textbf{Rastreabilidade:} registram as ações do agente para fins de auditoria do processo.
+\end{enumerate}
+
+A Tabela~\ref{tab:hooks-propostos} apresenta a relação dos \textit{hooks} adotados acompanhada de suas respectivas justificativas.
 
 \renewcommand{\arraystretch}{1.5}
 \begin{table}[H]
     \centering
-    \caption{Hooks propostos para o processo de desenvolvimento.}
+    \caption{Hooks adotados no processo de desenvolvimento.}
     \label{tab:hooks-propostos}
     \small
 
-    \begin{tabularx}{\textwidth}{|>{\hsize=0.8\hsize\raggedright\arraybackslash}X|>{\hsize=0.9\hsize\raggedright\arraybackslash}X|>{\hsize=1.6\hsize\raggedright\arraybackslash}X|>{\hsize=0.7\hsize\raggedright\arraybackslash}X|}
+    \begin{tabularx}{\textwidth}{|>{\hsize=0.65\hsize\raggedright\arraybackslash}X|>{\hsize=0.85\hsize\raggedright\arraybackslash}X|>{\hsize=1.1\hsize\raggedright\arraybackslash}X|>{\hsize=1.4\hsize\raggedright\arraybackslash}X|}
         \hline
-        \textbf{Evento} & \textbf{Seletor} & \textbf{Função} & \textbf{Escopo} \\
+        \textbf{Evento} & \textbf{Seletor} & \textbf{Script} & \textbf{Função e justificativa} \\
         \hline
-        PostToolUse & \texttt{Edit|\allowbreak Write} & Executar \textit{linter} e formatador automaticamente no arquivo alterado, ajustando o código após a geração. & Global \\
+        PreToolUse & \texttt{Bash} & \texttt{block-\allowbreak destructive.sh} & Bloquear comandos destrutivos, como remoção recursiva, \textit{push} forçado, \textit{reset} rígido e \texttt{DROP}, cujos efeitos são difíceis ou impossíveis de reverter. \\
         \hline
-        PreToolUse & \texttt{Read|\allowbreak Edit|\allowbreak Write|\allowbreak Bash} & Bloquear acesso a arquivos de variáveis de ambiente, de chaves e de credenciais, como segunda camada após o isolamento do contêiner. & Global \\
+        PreToolUse & \texttt{Read|\allowbreak Edit|\allowbreak Write|\allowbreak MultiEdit|\allowbreak Glob|\allowbreak Grep|\allowbreak Bash} & \texttt{block-\allowbreak secrets.sh} & Impedir o acesso a arquivos de variáveis de ambiente, chaves e credenciais por qualquer ferramenta de leitura, escrita. \\
         \hline
-        PreToolUse & \texttt{Bash} & Bloquear comandos destrutivos, como remoção recursiva, \textit{push} forçado, \textit{reset} rígido e \texttt{DROP}. & Global \\
+        PostToolUse & \texttt{Edit|\allowbreak Write|\allowbreak MultiEdit} & \texttt{format-\allowbreak java.sh} & Formatar automaticamente o arquivo Java alterado, garantindo padronização sem depender de instrução no \textit{prompt}. \\
         \hline
-        PreToolUse & \texttt{Read|\allowbreak Grep|\allowbreak Glob|\allowbreak Write|\allowbreak Edit} & Aplicar lista de permissões (\textit{allow-list}) para que o \texttt{Tester} acesse apenas testes e especificações. & \texttt{Tester} \\
+        PostToolUse & \texttt{Edit|\allowbreak Write|\allowbreak MultiEdit} & \texttt{lint-\allowbreak java.sh} & Executa a análise estática nos arquivos alterados para identificar variáveis não utilizadas e inconformidades de nomenclatura. \\
         \hline
-        PreToolUse & \texttt{Write|\allowbreak Edit} & Aplicar lista de proibições (\textit{deny-list}) para que o \texttt{Dev} não altere arquivos de teste. & \texttt{Dev} \\
-        \hline
-        PostToolUse & \texttt{*} & Registrar ferramenta, caminho e horário de cada ação, sem registrar o conteúdo dos arquivos, para fins de auditoria do processo. & Global \\
+        PostToolUse & \texttt{*} & \texttt{log-\allowbreak actions.sh} & Registrar ferramenta, caminho e horário de cada ação, sem registrar o conteúdo dos arquivos, para fins de auditoria do processo. \\
         \hline
     \end{tabularx}
 
     \vspace{0.5em}
     \small Fonte: autoria própria, com base em \citeonline{anthropic_academy}.
 \end{table}
+
 
 %
 %%----------------------------------------------------------------------------
