@@ -1,11 +1,248 @@
-Esta seção apresenta o desenvolvimento do software, incluindo os repositórios, os ambientes de implantação e os resultados obtidos nos épicos selecionados.
+Esta seção retoma o escopo dos cinco épicos definidos na Seção 3.6.1.1 e descreve o que deve ser desenvolvido em cada camada do sistema. As funcionalidades correspondem às histórias de usuário especificadas no Capítulo 3. As tabelas do backend relacionam essas histórias às operações atualmente documentadas no Swagger da API Seed. O mapeamento é feito pela finalidade descrita para cada operação; a documentação consultada não permite determinar em que momento cada endpoint foi criado.
+
+A documentação foi consultada em 16 de novembro de 2026 e está disponível em \url{http://api.seeds.software/swagger-ui/index.html}. As rotas nas tabelas são relativas ao servidor indicado pelo Swagger.
 
 \subsection{Épico 1 -- Gerenciamento de Registro do Usuário}
 
+Este épico reúne as funcionalidades de cadastro e manutenção dos dados de usuários e funcionários, previstas nas histórias US1 a US4.
+
+\subsubsection{\textit{Frontend}}
+
+Devem ser disponibilizadas interfaces para que usuários e funcionários realizem seu cadastro e editem seus dados. Também deve ser oferecida uma interação para solicitar a exclusão dos dados. Os formulários devem permitir informar os dados necessários a cada operação e apresentar o resultado da solicitação ao usuário.
+
+\subsubsection{\textit{Backend}}
+
+As operações abaixo foram localizadas no Swagger e associadas às histórias conforme sua finalidade. Para edição, as rotas de consulta também são listadas como apoio à obtenção dos dados próprios.
+
+Com exceção das rotas de cadastro de estudante, cadastro de funcionário e \textit{login}, as demais rotas da API exigem um token JWT. O \textit{login} é realizado por meio de \textit{POST} em \texttt{/auth/login} e, quando bem-sucedido, retorna o token que será enviado nas requisições seguintes para autenticar e autorizar o usuário.
+
+O token contém o \texttt{UUID}, identificador único usado para localizar os dados pessoais do usuário; o \texttt{ROLE}, que representa seu papel e suas permissões; e a data de expiração (\texttt{EXPIRACAO}). Nas operações sobre dados pessoais, o UUID identifica o titular dos dados e limita a consulta e a alteração aos dados do próprio usuário, impedindo que ele manipule dados pessoais de outra pessoa. A cada consulta, o \textit{backend} verifica a validade do token e confere se o UUID está associado, no banco de dados, à permissão exigida pela operação. Assim, uma pessoa sem permissão registrada não acessa o painel administrativo de uma IES. Para consultas e alterações de dados de uma IES, o \textit{backend} usa o UUID para localizar a IES vinculada ao usuário e restringe a operação a essa instituição, impedindo o acesso ou a manipulação de dados de outras IES.
+
+\renewcommand{\arraystretch}{1.5}
+\setlength{\LTleft}{\fill}
+\setlength{\LTright}{\fill}
+\begin{longtable}{|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{5.7cm}|>{\raggedright\arraybackslash}p{5.2cm}|}
+\caption{\textit{Endpoints} de autenticação.}\label{tab:endpoints-autenticacao}\\
+\hline
+\textbf{US} & \textbf{Método} & \textbf{Rota} & \textbf{Operação} \\
+\hline
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continuação}\\
+\hline
+\textbf{US} & \textbf{Método} & \textbf{Rota} & \textbf{Operação} \\
+\hline
+\endhead
+\hline
+\endfoot
+\hline
+\multicolumn{4}{c}{\small Fonte: autoria própria.}\\
+\endlastfoot
+US1 & \textit{POST} & \texttt{/auth/\allowbreak cadastro/\allowbreak estudante} & Cadastrar estudante. \\
+\hline
+US2 & \textit{POST} & \texttt{/auth/\allowbreak cadastro/\allowbreak funcionario} & Cadastrar funcionário. \\
+\hline
+-- & \textit{POST} & \texttt{/auth/login} & Autenticar usuário e retornar o token JWT. \\
+\hline
+US3 & \textit{GET} & \texttt{/estudante} & Consultar os próprios dados de estudante. \\
+\hline
+US3 & \textit{PATCH} & \texttt{/estudante} & Editar os próprios dados de estudante. \\
+\hline
+US3 & \textit{GET} & \texttt{/funcionario} & Consultar os próprios dados de funcionário. \\
+\hline
+US3 & \textit{PATCH} & \texttt{/funcionario} & Editar os próprios dados de funcionário. \\
+\hline
+US4 & \textit{DELETE} & \texttt{/estudante} & Excluir a própria conta de estudante. \\
+\hline
+US4 & \textit{DELETE} & \texttt{/funcionario} & Excluir a própria conta de funcionário. \\
+\hline
+\end{longtable}
+
 \subsection{Épico 2 -- Gerenciamento de Formulários}
+
+Este épico abrange o registro diário das avaliações de bem-estar, a consulta das respostas, sua apresentação em estatísticas e o gerenciamento de formulários e anotações, conforme as histórias US5 a US11.
+
+\subsubsection{\textit{Frontend}}
+
+Devem ser criadas interfaces para o usuário registrar sua avaliação diária em cada seção de bem-estar e consultar formulários já respondidos. O funcionário deve poder visualizar os dados registrados pelos usuários e criar ou editar formulários personalizados. A interface de preenchimento deve permitir que o usuário inclua uma anotação livre junto com suas respostas.
+
+\subsubsection{\textit{Backend}}
+
+As rotas documentadas para formulários base e personalizados estão relacionadas abaixo. As histórias US8 e US11 não possuem rotas próprias: a análise estatística será realizada pelo \textit{Power BI}, e as anotações serão enviadas junto com as respostas durante o preenchimento do formulário.
+
+\renewcommand{\arraystretch}{1.5}
+\setlength{\LTleft}{\fill}
+\setlength{\LTright}{\fill}
+\begin{longtable}{|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{5.7cm}|>{\raggedright\arraybackslash}p{5.2cm}|}
+\caption{\textit{Endpoints} de formulários.}\label{tab:endpoints-formularios}\\
+\hline
+\textbf{US} & \textbf{Método} & \textbf{Rota} & \textbf{Operação} \\
+\hline
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continuação}\\
+\hline
+\textbf{US} & \textbf{Método} & \textbf{Rota} & \textbf{Operação} \\
+\hline
+\endhead
+\hline
+\endfoot
+\hline
+\multicolumn{4}{c}{\small Fonte: autoria própria.}\\
+\endlastfoot
+US5 & \textit{POST} & \texttt{/api/\allowbreak estudante/\allowbreak formularios-base/\allowbreak respostas} & Preencher o formulário base. \\
+\hline
+US6 & \textit{GET} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-base/\allowbreak respostas} & Listar respostas dos estudantes da IES do funcionário. \\
+\hline
+US6 & \textit{GET} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-personalizados/\allowbreak \{id\}/\allowbreak respostas} & Listar respostas dos estudantes para um formulário personalizado. \\
+\hline
+US6 & \textit{GET} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-base/\allowbreak respostas/\allowbreak anotacoes} & Consultar as anotações das respostas dos estudantes da IES. \\
+\hline
+US7 & \textit{GET} & \texttt{/api/\allowbreak estudante/\allowbreak formularios-base/\allowbreak respostas} & Listar as próprias respostas do formulário base. \\
+\hline
+US7 & \textit{GET} & \texttt{/api/\allowbreak estudante/\allowbreak formularios-base/\allowbreak respostas/\allowbreak \{id\}} & Consultar uma resposta própria do formulário base. \\
+\hline
+US7 & \textit{GET} & \texttt{/api/\allowbreak estudante/\allowbreak formularios-personalizados/\allowbreak \{id\}/\allowbreak respostas} & Listar as próprias tentativas de resposta de um formulário personalizado. \\
+\hline
+US8 & -- & -- & Sem rota própria; análise das respostas realizada pelo \textit{Power BI}. \\
+\hline
+US9 & \textit{POST} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-personalizados} & Criar formulário personalizado para a IES do funcionário. \\
+\hline
+US9 & \textit{GET} & \texttt{/api/\allowbreak funcionario/\allowbreak perguntas-formularios-personalizados} & Pesquisar perguntas reutilizáveis para os formulários. \\
+\hline
+US10 & \textit{GET} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-personalizados/\allowbreak \{id\}} & Consultar formulário e perguntas. \\
+\hline
+US10 & \textit{PUT} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-personalizados/\allowbreak \{id\}} & Editar formulário personalizado. \\
+\hline
+US11 & -- & -- & Sem rota própria; anotação enviada junto com as respostas do formulário. \\
+\hline
+\end{longtable}
+
+Na US8, a análise dos dados e a apresentação das estatísticas serão realizadas pelo \textit{Power BI}; por isso, não será implementado um \textit{endpoint} específico para gerar gráficos no \textit{backend}. Na US11, o usuário incluirá a anotação livre durante o preenchimento do formulário. A anotação será enviada com as respostas pela operação de submissão do formulário prevista na US5, sem uma rota exclusiva para criação de anotações.
 
 \subsection{Épico 3 -- Gerenciamento de Comunicação}
 
+Este épico reúne as comunicações previstas nas histórias US12 a US15: lembretes para preenchimento dos formulários, confirmação de troca de senha, avisos sobre o \textit{status} do aplicativo e avisos de eventos.
+
+\subsubsection{\textit{Frontend}}
+
+Devem ser contempladas as interações necessárias para que o usuário solicite a troca de senha e receba o retorno da operação. Os lembretes de formulários, os avisos sobre o \textit{status} do aplicativo e as comunicações sobre eventos são enviados por e-mail pelo serviço de notificação; portanto, não dependem de telas específicas para disparar cada mensagem.
+
+\subsubsection{\textit{Backend}}
+
+O serviço de notificação por e-mail deve ser acionado por eventos internos da aplicação, sem criar rotas específicas para cada tipo de aviso. Para a US12, o disparo ocorre na execução diária programada quando o formulário do dia ainda estiver pendente. Para a US13, a confirmação é enviada após a troca de senha ser concluída com sucesso. Para a US14, uma alteração de \textit{status} que deva ser comunicada aciona o envio do aviso correspondente. Para a US15, um evento do calendário que deva gerar comunicação aciona o envio aos usuários destinatários. A periodicidade e as condições exatas de envio devem seguir as regras definidas para cada funcionalidade.
+
+As únicas rotas da API relacionadas a esse fluxo são as de alteração da senha. Elas iniciam a operação solicitada pelo usuário; o envio do e-mail de confirmação é uma ação interna disparada após o sucesso, sem uma rota própria de notificação.
+
+\renewcommand{\arraystretch}{1.5}
+\setlength{\LTleft}{\fill}
+\setlength{\LTright}{\fill}
+\begin{longtable}{|>{\centering\arraybackslash}p{1.2cm}|>{\raggedright\arraybackslash}p{5.4cm}|>{\raggedright\arraybackslash}p{6.5cm}|}
+\caption{Gatilhos de comunicação por e-mail.}\label{tab:gatilhos-comunicacao}\\
+\hline
+\textbf{US} & \textbf{Gatilho} & \textbf{Ação do serviço de e-mail} \\
+\hline
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continuação}\\
+\hline
+\textbf{US} & \textbf{Gatilho} & \textbf{Ação do serviço de e-mail} \\
+\hline
+\endhead
+\hline
+\endfoot
+\hline
+\multicolumn{3}{c}{\small Fonte: autoria própria.}\\
+\endlastfoot
+US12 & Execução diária programada, quando o formulário do dia estiver pendente. & Enviar ao usuário um lembrete por e-mail para preencher os formulários diários. \\
+\hline
+US13 & Conclusão bem-sucedida de \textit{PATCH} \texttt{/estudante/\allowbreak senha} ou \textit{PATCH} \texttt{/funcionario/\allowbreak senha}. & Enviar ao usuário a confirmação da troca de senha por e-mail. \\
+\hline
+US14 & Alteração do \textit{status} do aplicativo que deva ser comunicada. & Enviar por e-mail um aviso com a informação atualizada sobre o aplicativo. \\
+\hline
+US15 & Evento do calendário que, conforme as regras da aplicação, deva gerar uma comunicação. & Enviar por e-mail um aviso sobre o evento aos usuários destinatários. \\
+\hline
+\end{longtable}
+
 \subsection{Épico 4 -- Gerenciamento de Eventos}
 
-\subsection{Épico 5 -- Gerenciamento do Feed}
+Este épico compreende o gerenciamento de eventos do calendário pelo funcionário e a visualização desses eventos pelo usuário, conforme as histórias US17 a US20.
+
+\subsubsection{\textit{Frontend}}
+
+Devem ser disponibilizadas interfaces para que o funcionário registre, edite e exclua eventos do calendário. Para o usuário, deve ser apresentada uma forma de consultar os eventos disponíveis no calendário do aplicativo.
+
+\subsubsection{\textit{Backend}}
+
+As operações documentadas para criação, edição, exclusão e consulta de eventos são relacionadas às histórias correspondentes na tabela.
+
+\renewcommand{\arraystretch}{1.5}
+\setlength{\LTleft}{\fill}
+\setlength{\LTright}{\fill}
+\begin{longtable}{|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{5.7cm}|>{\raggedright\arraybackslash}p{5.2cm}|}
+\caption{\textit{Endpoints} de eventos.}\label{tab:endpoints-eventos}\\
+\hline
+\textbf{US} & \textbf{Método} & \textbf{Rota} & \textbf{Operação} \\
+\hline
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continuação}\\
+\hline
+\textbf{US} & \textbf{Método} & \textbf{Rota} & \textbf{Operação} \\
+\hline
+\endhead
+\hline
+\endfoot
+\hline
+\multicolumn{4}{c}{\small Fonte: autoria própria.}\\
+\endlastfoot
+US17 & \textit{POST} & \texttt{/eventos} & Criar evento. \\
+\hline
+US18 & \textit{PUT} & \texttt{/eventos/\allowbreak \{id\}} & Atualizar evento. \\
+\hline
+US19 & \textit{DELETE} & \texttt{/eventos/\allowbreak \{id\}} & Excluir evento. \\
+\hline
+US20 & \textit{GET} & \texttt{/eventos} & Listar eventos para consulta. \\
+\hline
+US20 & \textit{GET} & \texttt{/eventos/\allowbreak \{id\}} & Consultar evento por identificador. \\
+\hline
+\end{longtable}
+
+\subsection{Épico 5 -- Gerenciamento do \textit{Feed}}
+
+Este épico prevê a publicação e a consulta de conteúdo no \textit{feed} de cada seção de bem-estar, conforme as histórias US21 a US24.
+
+\subsubsection{\textit{Frontend}}
+
+Devem ser disponibilizadas interfaces para que o funcionário registre, edite e exclua publicações vinculadas às seções de bem-estar. O usuário deve poder visualizar o \textit{feed} correspondente a cada seção.
+
+\subsubsection{\textit{Backend}}
+
+As operações documentadas para criação, edição, exclusão e consulta de publicações são relacionadas às histórias correspondentes na tabela.
+
+\renewcommand{\arraystretch}{1.5}
+\setlength{\LTleft}{\fill}
+\setlength{\LTright}{\fill}
+\begin{longtable}{|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{5.7cm}|>{\raggedright\arraybackslash}p{5.2cm}|}
+\caption{\textit{Endpoints} do feed.}\label{tab:endpoints-feed}\\
+\hline
+\textbf{US} & \textbf{Método} & \textbf{Rota} & \textbf{Operação} \\
+\hline
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continuação}\\
+\hline
+\textbf{US} & \textbf{Método} & \textbf{Rota} & \textbf{Operação} \\
+\hline
+\endhead
+\hline
+\endfoot
+\hline
+\multicolumn{4}{c}{\small Fonte: autoria própria.}\\
+\endlastfoot
+US21 & \textit{POST} & \texttt{/publicacoes} & Criar publicação. \\
+\hline
+US22 & \textit{PUT} & \texttt{/publicacoes/\allowbreak \{id\}} & Atualizar publicação. \\
+\hline
+US23 & \textit{DELETE} & \texttt{/publicacoes/\allowbreak \{id\}} & Excluir publicação. \\
+\hline
+US24 & \textit{GET} & \texttt{/publicacoes} & Listar publicações para visualização do \textit{feed}. \\
+\hline
+US24 & \textit{GET} & \texttt{/publicacoes/\allowbreak \{id\}} & Consultar publicação por identificador. \\
+\hline
+\end{longtable}
