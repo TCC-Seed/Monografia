@@ -1,6 +1,4 @@
-Esta seção retoma o escopo dos cinco épicos definidos na Seção 3.6.1.1 e descreve o que deve ser desenvolvido em cada camada do sistema. As funcionalidades correspondem às histórias de usuário especificadas no Capítulo 3. As tabelas do backend relacionam essas histórias às operações atualmente documentadas no Swagger da API Seed. O mapeamento é feito pela finalidade descrita para cada operação; a documentação consultada não permite determinar em que momento cada endpoint foi criado.
-
-A documentação foi consultada em 16 de novembro de 2026 e está disponível em \url{http://api.seeds.software/swagger-ui/index.html}. As rotas nas tabelas são relativas ao servidor indicado pelo Swagger.
+Esta seção retoma o escopo dos cinco épicos definidos na Seção~\ref{sec:requisitos} e descreve o que deve ser desenvolvido em cada camada do sistema. As funcionalidades correspondem às histórias de usuário especificadas no Capítulo~\ref{cap:metodologia}. As tabelas do backend relacionam essas histórias às operações atualmente documentadas no Swagger da API Seed. O mapeamento é feito pela finalidade descrita para cada operação.
 
 \subsection{Épico 1 -- Gerenciamento de Registro do Usuário}
 
@@ -12,11 +10,17 @@ Devem ser disponibilizadas interfaces para que usuários e funcionários realize
 
 \subsubsection{\textit{Backend}}
 
-As operações abaixo foram localizadas no Swagger e associadas às histórias conforme sua finalidade. Para edição, as rotas de consulta também são listadas como apoio à obtenção dos dados próprios.
+As operações abaixo foram localizadas no Swagger e associadas às histórias conforme sua finalidade. Com exceção das rotas de cadastro de estudante, cadastro de funcionário e \textit{login}, as demais rotas da API exigem um token JWT. O \textit{login} é realizado por meio de \textit{POST} em \texttt{/auth/login} e, quando bem-sucedido, retorna o token que será enviado nas requisições seguintes para autenticar e autorizar o usuário. O token carrega três informações:
 
-Com exceção das rotas de cadastro de estudante, cadastro de funcionário e \textit{login}, as demais rotas da API exigem um token JWT. O \textit{login} é realizado por meio de \textit{POST} em \texttt{/auth/login} e, quando bem-sucedido, retorna o token que será enviado nas requisições seguintes para autenticar e autorizar o usuário.
+\begin{itemize}
+    \item \texttt{UUID}: identificador único que permite localizar os dados pessoais do usuário;
+    \item \texttt{ROLE}: define o papel e as permissões dele;
+    \item \texttt{EXPIRATION}: data de expiração do token.
+\end{itemize}
 
-O token contém o \texttt{UUID}, identificador único usado para localizar os dados pessoais do usuário; o \texttt{ROLE}, que representa seu papel e suas permissões; e a data de expiração (\texttt{EXPIRACAO}). Nas operações sobre dados pessoais, o UUID identifica o titular dos dados e limita a consulta e a alteração aos dados do próprio usuário, impedindo que ele manipule dados pessoais de outra pessoa. A cada consulta, o \textit{backend} verifica a validade do token e confere se o UUID está associado, no banco de dados, à permissão exigida pela operação. Assim, uma pessoa sem permissão registrada não acessa o painel administrativo de uma IES. Para consultas e alterações de dados de uma IES, o \textit{backend} usa o UUID para localizar a IES vinculada ao usuário e restringe a operação a essa instituição, impedindo o acesso ou a manipulação de dados de outras IES.
+Quando a operação envolve dados pessoais, o UUID indica quem é o titular e restringe consultas e alterações aos dados do próprio usuário, de modo que ninguém consiga mexer nas informações de outra pessoa. A cada requisição, o \textit{backend} confere se o token ainda é válido e verifica se o UUID tem a permissão que aquela operação exige, no banco de dados, sendo assim, quem não tem a permissão registrada não consegue entrar no painel administrativo de uma IES. Já nas consultas e alterações de dados de uma IES, o \textit{backend} usa o UUID para descobrir a qual instituição o usuário está vinculado e limita a operação a ela, evitando que alguém acesse ou altere dados de outras IES.
+
+A Tabela~\ref{tab:endpoints-autenticacao} relaciona as histórias de usuário com as operações da API.
 
 \renewcommand{\arraystretch}{1.5}
 \setlength{\LTleft}{\fill}
@@ -67,7 +71,7 @@ Devem ser criadas interfaces para o usuário registrar sua avaliação diária e
 
 \subsubsection{\textit{Backend}}
 
-As rotas documentadas para formulários base e personalizados estão relacionadas abaixo. As histórias US8 e US11 não possuem rotas próprias: a análise estatística será realizada pelo \textit{Power BI}, e as anotações serão enviadas junto com as respostas durante o preenchimento do formulário.
+As rotas documentadas para formulários base e personalizados estão relacionadas na Tabela~\ref{tab:endpoints-formularios}. As histórias US8 e US11 não possuem rotas próprias, pois a análise estatística será realizada pelo \textit{Power BI}, e as anotações serão enviadas junto com as respostas durante o preenchimento do formulário prevista na US5.
 
 \renewcommand{\arraystretch}{1.5}
 \setlength{\LTleft}{\fill}
@@ -102,25 +106,20 @@ US7 & \textit{GET} & \texttt{/api/\allowbreak estudante/\allowbreak formularios-
 \hline
 US7 & \textit{GET} & \texttt{/api/\allowbreak estudante/\allowbreak formularios-personalizados/\allowbreak \{id\}/\allowbreak respostas} & Listar as próprias tentativas de resposta de um formulário personalizado. \\
 \hline
-US8 & -- & -- & Sem rota própria; análise das respostas realizada pelo \textit{Power BI}. \\
-\hline
 US9 & \textit{POST} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-personalizados} & Criar formulário personalizado para a IES do funcionário. \\
 \hline
-US9 & \textit{GET} & \texttt{/api/\allowbreak funcionario/\allowbreak perguntas-formularios-personalizados} & Pesquisar perguntas reutilizáveis para os formulários. \\
+US9 & \textit{GET} & \texttt{/api/\allowbreak funcionario/\allowbreak perguntas-\allowbreak formularios-\allowbreak personalizados} & Pesquisar perguntas reutilizáveis para os formulários. \\
 \hline
 US10 & \textit{GET} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-personalizados/\allowbreak \{id\}} & Consultar formulário e perguntas. \\
 \hline
 US10 & \textit{PUT} & \texttt{/api/\allowbreak funcionario/\allowbreak formularios-personalizados/\allowbreak \{id\}} & Editar formulário personalizado. \\
 \hline
-US11 & -- & -- & Sem rota própria; anotação enviada junto com as respostas do formulário. \\
-\hline
 \end{longtable}
 
-Na US8, a análise dos dados e a apresentação das estatísticas serão realizadas pelo \textit{Power BI}; por isso, não será implementado um \textit{endpoint} específico para gerar gráficos no \textit{backend}. Na US11, o usuário incluirá a anotação livre durante o preenchimento do formulário. A anotação será enviada com as respostas pela operação de submissão do formulário prevista na US5, sem uma rota exclusiva para criação de anotações.
 
 \subsection{Épico 3 -- Gerenciamento de Comunicação}
 
-Este épico reúne as comunicações previstas nas histórias US12 a US15: lembretes para preenchimento dos formulários, confirmação de troca de senha, avisos sobre o \textit{status} do aplicativo e avisos de eventos.
+Este épico reúne as comunicações previstas nas histórias US12 a US15, como lembretes para preenchimento dos formulários, confirmação de troca de senha, avisos sobre o \textit{status} do aplicativo e avisos de eventos.
 
 \subsubsection{\textit{Frontend}}
 
@@ -128,9 +127,20 @@ Devem ser contempladas as interações necessárias para que o usuário solicite
 
 \subsubsection{\textit{Backend}}
 
-O serviço de notificação por e-mail deve ser acionado por eventos internos da aplicação, sem criar rotas específicas para cada tipo de aviso. Para a US12, o disparo ocorre na execução diária programada quando o formulário do dia ainda estiver pendente. Para a US13, a confirmação é enviada após a troca de senha ser concluída com sucesso. Para a US14, uma alteração de \textit{status} que deva ser comunicada aciona o envio do aviso correspondente. Para a US15, um evento do calendário que deva gerar comunicação aciona o envio aos usuários destinatários. A periodicidade e as condições exatas de envio devem seguir as regras definidas para cada funcionalidade.
+%O serviço de notificação por e-mail deve ser acionado por eventos internos da aplicação, sem criar rotas específicas para cada tipo de aviso. Para a US12, o disparo ocorre na execução diária programada quando o formulário do dia ainda estiver pendente. Para a US13, a confirmação é enviada após a troca de senha ser concluída com sucesso. Para a US14, uma alteração de \textit{status} que deva ser comunicada aciona o envio do aviso correspondente. Para a US15, um evento do calendário que deva gerar comunicação aciona o envio aos usuários destinatários. A periodicidade e as condições exatas de envio devem seguir as regras definidas para cada funcionalidade.
 
-As únicas rotas da API relacionadas a esse fluxo são as de alteração da senha. Elas iniciam a operação solicitada pelo usuário; o envio do e-mail de confirmação é uma ação interna disparada após o sucesso, sem uma rota própria de notificação.
+O serviço de notificação por e-mail deve ser acionado por eventos internos da aplicação, sem criar rotas específicas para cada tipo de aviso. O disparo ocorre da seguinte forma:
+
+\begin{itemize}
+    \item \textbf{US12:} na execução diária programada, quando o formulário do dia ainda estiver pendente;
+    \item \textbf{US13:} após a conclusão bem-sucedida da troca de senha, com o envio da confirmação;
+    \item \textbf{US14:} quando houver uma alteração de \textit{status} que deva ser comunicada, o que aciona o envio do aviso correspondente;
+    \item \textbf{US15:} quando um evento do calendário deva gerar comunicação, o que aciona o envio aos usuários destinatários.
+\end{itemize}
+
+%A periodicidade e as condições exatas de envio devem seguir as regras definidas para cada funcionalidade.
+
+As únicas rotas da API relacionadas a esse fluxo são as de alteração de senha. Elas iniciam a operação solicitada pelo usuário; já o envio do e-mail de confirmação é uma ação interna, disparada após a conclusão bem-sucedida da troca, sem uma rota própria de notificação. Assim, a Tabela~\ref{tab:gatilhos-comunicacao} apresenta as rotas desenvolvidas para o Épico 3.
 
 \renewcommand{\arraystretch}{1.5}
 \setlength{\LTleft}{\fill}
