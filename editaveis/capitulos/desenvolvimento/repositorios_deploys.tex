@@ -22,7 +22,7 @@ A Tabela~\ref{tab:repositorios} apresenta os repositórios, os endereços de \te
         \hline
         \textit{Backend} & \footnotesize\url{https://github.com/TCC-Seed/Service} & \footnotesize\url{https://www.api.seeds.software/} \\
         \hline
-        \textit{Frontend} & \footnotesize\url{https://github.com/TCC-Seed/Front} & \footnotesize\url{https://www.seeds.software/} \\
+        \textit{Frontend web (PWA)} & \footnotesize\url{https://github.com/TCC-Seed/Front} & \footnotesize\url{https://www.seeds.software/} \\
         \hline
         Monografia & \footnotesize\url{https://github.com/TCC-Seed/Monografia} & \footnotesize\url{https://raw.githubusercontent.com/TCC-Seed/Monografia/main/main.pdf} \\
         \hline
@@ -35,4 +35,3 @@ A Tabela~\ref{tab:repositorios} apresenta os repositórios, os endereços de \te
 O endereço do banco de dados não é divulgado publicamente, o que reduz o risco de sobrecarga e de acessos indevidos. A OWASP recomenda que o banco de dados de uma aplicação seja isolado dos demais servidores e aceite conexões do menor número possível de \textit{hosts}, seja por regras de \textit{firewall} na porta de rede, seja por um segmento de rede interno \cite{owasp-database}.
 
 O projeto usa o DNS da \textit{Cloudflare} com os registros em modo \textit{proxied}. Com isso, toda requisição passa primeiro pela \textit{Cloudflare} antes de chegar ao servidor de origem, o que permite mitigar ataques de negação de serviço (DDoS) de forma automática \cite{cloudflare-ddos}. A comunicação é protegida por TLS, tanto entre o cliente e a \textit{Cloudflare} quanto entre a \textit{Cloudflare} e o servidor de origem. No modo \textit{Full (strict)}, o certificado do servidor de origem também é validado \cite{cloudflare_full_strict}.
-

@@ -6,7 +6,7 @@ Este épico reúne as funcionalidades de cadastro e manutenção dos dados de us
 
 \subsubsection{\textit{Frontend}}
 
-Devem ser disponibilizadas interfaces para que usuários e funcionários realizem seu cadastro e editem seus dados. Também deve ser oferecida uma interação para solicitar a exclusão dos dados. Os formulários devem permitir informar os dados necessários a cada operação e apresentar o resultado da solicitação ao usuário.
+Devem ser disponibilizadas telas responsivas para que usuários e funcionários realizem seu cadastro e editem seus dados. Também deve ser oferecida uma interação para solicitar a exclusão dos dados. Os formulários devem permitir informar os dados necessários a cada operação e apresentar o resultado da solicitação ao usuário.
 
 \subsubsection{\textit{Backend}}
 
@@ -67,7 +67,7 @@ Este épico abrange o registro diário das avaliações de bem-estar, a consulta
 
 \subsubsection{\textit{Frontend}}
 
-Devem ser criadas interfaces para o usuário registrar sua avaliação diária em cada seção de bem-estar e consultar formulários já respondidos. O funcionário deve poder visualizar os dados registrados pelos usuários e criar ou editar formulários personalizados. A interface de preenchimento deve permitir que o usuário inclua uma anotação livre junto com suas respostas.
+Devem ser criadas telas responsivas para o usuário registrar sua avaliação diária em cada seção de bem-estar e consultar formulários já respondidos. O funcionário deve poder visualizar os dados registrados pelos usuários e criar ou editar formulários personalizados. A tela de preenchimento deve permitir que o usuário inclua uma anotação livre junto com suas respostas. Como comportamento previsto para a PWA, o formulário diário poderá ser preenchido sem conexão, mantendo as respostas pendentes localmente para envio à API após o restabelecimento da conexão.
 
 \subsubsection{\textit{Backend}}
 
@@ -119,11 +119,11 @@ US10 & \textit{PUT} & \texttt{/api/\allowbreak funcionario/\allowbreak formulari
 
 \subsection{Épico 3 -- Gerenciamento de Comunicação}
 
-Este épico reúne as comunicações previstas nas histórias US12 a US15, como lembretes para preenchimento dos formulários, confirmação de troca de senha, avisos sobre o \textit{status} do aplicativo e avisos de eventos.
+Este épico reúne as comunicações previstas nas histórias US12 a US15, como lembretes para preenchimento dos formulários, confirmação de troca de senha, avisos sobre o \textit{status} do sistema e avisos de eventos.
 
 \subsubsection{\textit{Frontend}}
 
-Devem ser contempladas as interações necessárias para que o usuário solicite a troca de senha e receba o retorno da operação. Os lembretes de formulários, os avisos sobre o \textit{status} do aplicativo e as comunicações sobre eventos são enviados por e-mail pelo serviço de notificação; portanto, não dependem de telas específicas para disparar cada mensagem.
+Devem ser contempladas as interações necessárias para que o usuário solicite a troca de senha e receba o retorno da operação. Os lembretes de formulários, os avisos sobre o \textit{status} do sistema e as comunicações sobre eventos são enviados por e-mail pelo serviço de notificação; portanto, não dependem de telas específicas para disparar cada mensagem.
 
 \subsubsection{\textit{Backend}}
 
@@ -165,7 +165,7 @@ US12 & Execução diária programada, quando o formulário do dia estiver penden
 \hline
 US13 & Conclusão bem-sucedida de \textit{PATCH} \texttt{/estudante/\allowbreak senha} ou \textit{PATCH} \texttt{/funcionario/\allowbreak senha}. & Enviar ao usuário a confirmação da troca de senha por e-mail. \\
 \hline
-US14 & Alteração do \textit{status} do aplicativo que deva ser comunicada. & Enviar por e-mail um aviso com a informação atualizada sobre o aplicativo. \\
+US14 & Alteração do \textit{status} do sistema que deva ser comunicada. & Enviar por e-mail um aviso com a informação atualizada sobre o sistema. \\
 \hline
 US15 & Evento do calendário que, conforme as regras da aplicação, deva gerar uma comunicação. & Enviar por e-mail um aviso sobre o evento aos usuários destinatários. \\
 \hline
@@ -177,7 +177,7 @@ Este épico compreende o gerenciamento de eventos do calendário pelo funcionár
 
 \subsubsection{\textit{Frontend}}
 
-Devem ser disponibilizadas interfaces para que o funcionário registre, edite e exclua eventos do calendário. Para o usuário, deve ser apresentada uma forma de consultar os eventos disponíveis no calendário do aplicativo.
+Devem ser disponibilizadas telas responsivas para que o funcionário registre, edite e exclua eventos do calendário. Para o usuário, deve ser apresentada uma forma de consultar os eventos disponíveis no calendário do sistema.
 
 \subsubsection{\textit{Backend}}
 
@@ -220,7 +220,7 @@ Este épico prevê a publicação e a consulta de conteúdo no \textit{feed} de 
 
 \subsubsection{\textit{Frontend}}
 
-Devem ser disponibilizadas interfaces para que o funcionário registre, edite e exclua publicações vinculadas às seções de bem-estar. O usuário deve poder visualizar o \textit{feed} correspondente a cada seção.
+Devem ser disponibilizadas telas responsivas para que o funcionário registre, edite e exclua publicações vinculadas às seções de bem-estar. O usuário deve poder visualizar o \textit{feed} correspondente a cada seção.
 
 \subsubsection{\textit{Backend}}
 

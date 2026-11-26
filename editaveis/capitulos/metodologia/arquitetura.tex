@@ -48,10 +48,10 @@ Ademais, um aspecto fundamental para manipulação de dados é a utilização de
 
 O \textit{frontend} é a camada de visualização e interação com o usuário. Por isso, é essencial que essa interface seja clara, intuitiva e eficiente. Para garantir isso, o modelo proposto segue as 10 heurísticas de usabilidade de Nielsen.
 
-Em especial, é necessário que o sistema seja padronizado e acessível em diferentes dispositivos móveis, independente do sistema operacional. Sendo assim, optou-se por utilizar o React Native, um \textit{framework} que permite a criação de aplicações móveis multiplataforma.
+Em especial, é necessário que o sistema seja padronizado e acessível em diferentes tamanhos de tela. O frontend do Seed é uma aplicação web responsiva, executada no navegador em celulares e computadores, desenvolvida com React e Vite.
 
-\subsubsection{React Native}
+\subsubsection{React e Vite}
 
-React é uma biblioteca JavaScript baseada em componentes reutilizáveis, o que permite desenvolver sistemas recicláveis e independentes, favorecendo a manutenção e permitindo a escalabilidade \cite{boduch2017react}. 
+React é uma biblioteca JavaScript baseada em componentes reutilizáveis, utilizada para construir a interface do usuário \cite{boduch2017react}. Vite é a ferramenta de desenvolvimento e geração da aplicação web utilizada pelo frontend do Seed.
 
-Em suma, o React Native segue os mesmos princípios do React, porém, ao invés de gerar páginas \textit{web}, o React Native compila os componentes em elementos nativos, tanto para o Android quanto para o IOS (\textit{iPhone Operating System}). Sendo assim, o desempenho de aplicações em React Native é semelhante à utilização de linguagens nativas como Kotlin ou Swift \cite{boduch2017react}.
+O frontend inclui um Web App Manifest, que descreve os dados usados pelo navegador para apresentar e instalar a PWA, e um Service Worker, registrado para controlar requisições e disponibilizar recursos armazenados em cache. A aplicação é distribuída como conteúdo web, sem compilação de componentes para elementos nativos Android ou iOS.
