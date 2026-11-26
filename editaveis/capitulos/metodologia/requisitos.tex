@@ -29,7 +29,7 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
 
     \item \textbf{Feature F01}: registro do usuário.
     
-    US1 Eu, como usuário, desejo me cadastrar no aplicativo.
+    US1 Eu, como usuário, desejo me cadastrar no sistema.
 
     \begin{itemize}
         \item Prioridade: deve ter.
@@ -37,7 +37,7 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
     
     \item \textbf{Feature F02}: registro do funcionário.
 
-    US2 Eu, como funcionário, desejo me cadastrar no aplicativo.
+    US2 Eu, como funcionário, desejo me cadastrar no sistema.
 
     \begin{itemize}
         \item Prioridade: deve ter.
@@ -45,7 +45,7 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
     
     \item \textbf{Feature F03}: edição de dados do usuário ou funcionário.
 
-    US3 Eu, como usuário ou funcionário, desejo editar meus dados no aplicativo.
+    US3 Eu, como usuário ou funcionário, desejo editar meus dados no sistema.
 
     \begin{itemize}
         \item Prioridade: deve ter.
@@ -53,7 +53,7 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
 
     \item \textbf{Feature F04}: exclusão de dados do usuário ou funcionário.
 
-    US4 Eu, como usuário ou funcionário, desejo deletar os meus dados do aplicativo.
+    US4 Eu, como usuário ou funcionário, desejo deletar os meus dados do sistema.
 
     \begin{itemize}
         \item Prioridade: deve ter.
@@ -69,7 +69,7 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
 
     \item \textbf{Feature F05}: registro de formulário.
 
-    US5 Eu, como usuário, desejo registrar diariamente minha avaliação do meu estado em cada seção do bem-estar.
+    US5 Eu, como usuário, desejo registrar diariamente minha avaliação do meu estado em cada seção do bem-estar, inclusive quando estiver sem conexão, para que a resposta seja enviada quando a conexão retornar.
 
     \begin{itemize}
         \item Prioridade: deve ter.
@@ -144,7 +144,7 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
     
     \item \textbf{Feature F12}: gerenciamento de avisos.
 
-    US14 Eu, como usuário, gostaria de receber avisos sobre o status do aplicativo por e-mail.
+    US14 Eu, como usuário, gostaria de receber avisos sobre o status do sistema por e-mail.
     
     \begin{itemize}
         \item Prioridade: poderia ter.
@@ -152,7 +152,7 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
     
     \item \textbf{Feature F13}: avisos de eventos.
 
-    US15 Eu, como usuário, gostaria de receber avisos sobre possíveis eventos dentro do calendário do aplicativo.
+    US15 Eu, como usuário, gostaria de receber avisos sobre possíveis eventos dentro do calendário do sistema.
     
     \begin{itemize}
         \item Prioridade: poderia ter.
@@ -166,19 +166,19 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
 \begin{itemize}
     \item \textbf{Feature F014}: gerenciar evento.
 
-    US17 Eu, como funcionário, desejo ser capaz de registrar eventos no calendário do aplicativo.
+    US17 Eu, como funcionário, desejo ser capaz de registrar eventos no calendário do sistema.
 
     \begin{itemize}
         \item Prioridade: deveria ter.
     \end{itemize}
     
-    US18 Eu, como funcionário, desejo ser capaz de editar informações de eventos no calendário do aplicativo.
+    US18 Eu, como funcionário, desejo ser capaz de editar informações de eventos no calendário do sistema.
 
     \begin{itemize}
         \item Prioridade: deveria ter.
     \end{itemize}
     
-    US19 Eu, como funcionário, desejo ser capaz de excluir eventos no calendário do aplicativo.
+    US19 Eu, como funcionário, desejo ser capaz de excluir eventos do calendário do sistema.
 
     \begin{itemize}
         \item Prioridade: deveria ter.
@@ -186,7 +186,7 @@ Sendo assim, os tópicos a seguir representam funcionalidades desenvolvidas usan
     
     \item \textbf{Feature F15}: visualizar evento.
 
-    US20 Eu, como usuário, desejo visualizar eventos no calendário do meu aplicativo.
+    US20 Eu, como usuário, desejo visualizar eventos no calendário do sistema.
 
     \begin{itemize}
         \item Prioridade: deveria ter.
@@ -245,9 +245,9 @@ Sendo assim, com base nos requisitos elicitados pelo Lean Inception com Personas
 \hline
 \endhead
 
-        FUNC01 & Cadastro de usuário no aplicativo. \\
+        FUNC01 & Cadastro de usuário no sistema. \\
         \hline
-        FUNC02 & Cadastro de funcionário no aplicativo. \\
+        FUNC02 & Cadastro de funcionário no sistema. \\
         \hline
         FUNC03 & Edição dos dados cadastrais de usuários e funcionários. \\
         \hline
@@ -269,9 +269,9 @@ Sendo assim, com base nos requisitos elicitados pelo Lean Inception com Personas
         \hline
         FUNC12 & Confirmação de troca de senha via e-mail. \\
         \hline
-        FUNC13 & Envio de avisos sobre o status do aplicativo por e-mail. \\
+        FUNC13 & Envio de avisos sobre o status do sistema por e-mail. \\
         \hline
-        FUNC14 & Envio de avisos sobre eventos no calendário do aplicativo. \\
+        FUNC14 & Envio de avisos sobre eventos no calendário do sistema. \\
         \hline
         FUNC15 & Registro de eventos no calendário (funcionário). \\
         \hline
@@ -340,33 +340,35 @@ Sendo assim, a partir das especificações de requisitos não funcionais propost
         \hline
         USAB01 & O sistema deve oferecer suporte a vários idiomas.  \\
         \hline
-        USAB02 & O app deve responder imediatamente às ações do usuário, mesmo com carregamentos. \\
+        USAB02 & O sistema deve responder imediatamente às ações do usuário, mesmo com carregamentos. \\
         \hline
         USAB03 & O sistema deve seguir um padrão simples para facilitar o aprendizado. \\
         \hline
         USAB04 & As interações devem ter feedback visual ou sonoro para orientar o usuário. \\
         \hline
-        USAB05 & O app deve mostrar mensagens claras em caso de erro, sem atrapalhar o uso. \\
+        USAB05 & O sistema deve mostrar mensagens claras em caso de erro, sem atrapalhar o uso. \\
         \hline
         CONF01 & O usuário pode alterar seus dados pessoais. \\
         \hline
-        CONF02 & O app deve seguir a Lei Geral de Proteção de Dados (LGPD). \\
+        CONF02 & O sistema deve seguir a Lei Geral de Proteção de Dados (LGPD). \\
         \hline
         CONF03 & O sistema deve funcionar 24 horas por dia, 7 dias por semana. \\
         \hline
         CONF04 & Deve existir um plano de backup para recuperação em caso de falhas. \\
         \hline
+        CONF05 & A PWA deve disponibilizar, sem conexão, os recursos armazenados em cache e permitir o registro local das respostas pendentes até a sincronização. \\
+        \hline
         PERF01 & O sistema deve suportar acessos simultâneos de diferentes usuários. \\
         \hline
-        PERF02 & O aplicativo deve realizar autenticação no tempo médio de 10 segundos. \\
+        PERF02 & O sistema deve realizar autenticação no tempo médio de 10 segundos. \\
         \hline
         PERF03 & O tempo de resposta deve ser inferior a 2 segundos. \\
         \hline
         PERF04 & O sistema deve aguentar um aumento de 20\% no número de usuários. \\
         \hline
-        SUPO01 & O app deve estar disponível para Android e iOS, com interface semelhante. \\
+        SUPO01 & O sistema deve ser acessível nos principais navegadores (Chrome, Safari, Firefox e Edge) e instalável em Android e iOS, com interface semelhante. \\
         \hline
-        SUPO02 & O app deve se adaptar a diferentes dispositivos, como celulares e tablets. \\
+        SUPO02 & A interface do sistema deve ser responsiva e adaptar-se a diferentes tamanhos de tela. \\
         \hline
         SUPO03 & O sistema deve seguir padrões de segurança reconhecidos, como ISO 27001. \\
         \hline
@@ -377,6 +379,3 @@ Sendo assim, a partir das especificações de requisitos não funcionais propost
     \vspace{0.5em}
     \small Fonte: autoria própria.
 \end{table}
-
-
-
